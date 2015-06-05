@@ -239,21 +239,23 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                     message:[NSString stringWithFormat:@"Avaliação de %@", [PFUser currentUser][@"full_name"]]
                                                    delegate:self
-                                          cancelButtonTitle:@"Enviar"
-                                          otherButtonTitles:nil];
+                                          cancelButtonTitle:@"Cancelar"
+                                          otherButtonTitles:@"Enviar", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"%@", [alertView textFieldAtIndex:0].text);
+    NSLog(@"%@ - %ld", [alertView textFieldAtIndex:0].text, (long)buttonIndex);
     
-    Rating *rating = [Rating new];
-    rating.user = [PFUser currentUser];
-    rating.note = self.ratingNote;
-    rating.talk = self.talkObject;
-    rating.ratingDescription = [alertView textFieldAtIndex:0].text;
+    if (buttonIndex == 1) {
+        Rating *rating = [Rating new];
+        rating.user = [PFUser currentUser];
+        rating.note = self.ratingNote;
+        rating.talk = self.talkObject;
+        rating.ratingDescription = [alertView textFieldAtIndex:0].text;
     
-    [RatingDAO saveRating:rating];
+        [RatingDAO saveRating:rating];
+    }
 }
 @end

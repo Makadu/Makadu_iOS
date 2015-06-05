@@ -48,13 +48,8 @@
                 if (![Connection existConnection]) {
                     [query setCachePolicy:kPFCachePolicyCacheOnly];
                 } else {
-                    if ([query hasCachedResult]) {
-                        [query setCachePolicy:kPFCachePolicyCacheOnly];
-                        [query setMaxCacheAge:600];
-                    } else {
-                        [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
-                        [query setMaxCacheAge:600];
-                    }
+                    [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
+                    [query setMaxCacheAge:600];
                 }
                 talk.speakers = [query findObjects];
                 
