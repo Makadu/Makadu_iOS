@@ -51,7 +51,9 @@
                     [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
                     [query setMaxCacheAge:600];
                 }
-                talk.speakers = [query findObjects];
+                [query findObjectsInBackgroundWithBlock:^(NSArray *speakers, NSError *error) {
+                    talk.speakers = speakers;
+                }];
                 
                 [listTalk addObject:talk];
             }
