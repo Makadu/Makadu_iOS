@@ -10,11 +10,6 @@
 
 @implementation TalkTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }

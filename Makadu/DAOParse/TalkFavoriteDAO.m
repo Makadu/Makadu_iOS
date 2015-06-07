@@ -52,7 +52,10 @@
                     [query findObjectsInBackgroundWithBlock:^(NSArray *speakers, NSError *error) {
                         talk.speakers = speakers;
                     }];
-                
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:talk forKey:@"favoritiesTalks"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
                     [listTalk addObject:talk];
                 }
                 success(listTalk);

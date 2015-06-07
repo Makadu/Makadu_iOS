@@ -126,7 +126,6 @@
         cell.backgroundColor = [UIColor whiteColor];
     }
     
-    
     Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
     
     cell.titleAndHourlabel.text = [NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title];

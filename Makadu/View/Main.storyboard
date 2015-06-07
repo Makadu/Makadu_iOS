@@ -251,7 +251,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
-                                            <rect key="frame" x="241" y="111" width="73" height="24"/>
+                                            <rect key="frame" x="241" y="120" width="73" height="24"/>
                                             <state key="normal" title="Button">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -410,9 +410,10 @@
                                                 <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="gGy-z7-MFH"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-6M-bmF">
-                                            <rect key="frame" x="241" y="111" width="73" height="24"/>
-                                            <state key="normal" title="Button">
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-6M-bmF">
+                                            <rect key="frame" x="230" y="117" width="80" height="24"/>
+                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="star_empty.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>

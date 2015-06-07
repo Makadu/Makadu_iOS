@@ -13,10 +13,13 @@
 
 +(void)fetchTalkByEvent:(PFObject *)event talks:(void(^)(NSArray* talks))success failure:(void(^)(NSString *errorMessage))failure {
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Talks"];
+    NSArray * talksFavorities = [TalkDAO getTalkFavoritiesIds];
     
+    PFQuery *query = [PFQuery queryWithClassName:@"Talks"];
     [query whereKey:@"active" equalTo:[NSNumber numberWithBool:YES]];
+    [query whereKey:@"objectId" notContainedIn:talksFavorities];
     [query whereKey:@"event" equalTo:event];
+    
     [query orderByAscending:@"start_hour"];
     
     if (![Connection existConnection]) {
@@ -76,4 +79,16 @@
     return talkObject;
 }
 
++(NSArray *)getTalkFavoritiesIds {
+    
+    NSArray * talks = [PFUser currentUser][@"favorities_talks"];
+    if ([talks count] > 0) {
+        NSMutableArray * ids = [NSMutableArray new];
+        for (PFObject * object in talks) {
+            [ids addObject:object.objectId];
+        }
+        return ids;
+    }
+    return @[];
+}
 @end
