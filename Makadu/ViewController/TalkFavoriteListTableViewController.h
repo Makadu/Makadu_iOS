@@ -1,8 +1,8 @@
 //
-//  TalkListTableViewController.h
+//  TalkFavoriteListTableViewController.h
 //  Makadu
 //
-//  Created by Marcio Habigzang Brufatto on 5/26/15.
+//  Created by Marcio Habigzang Brufatto on 6/6/15.
 //  Copyright (c) 2015 Madhava. All rights reserved.
 //
 
@@ -13,9 +13,8 @@
 
 #import "ShowEventViewController.h"
 
-@interface TalkListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TalkFavoriteListTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
-
 
 @end

@@ -10,6 +10,7 @@
 
 #import "TalkDAO.h"
 #import "EventDAO.h"
+#import "TalkFavoriteDAO.h"
 
 #import "Event.h"
 #import "Talk.h"
@@ -32,7 +33,6 @@
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) PFObject *talkObject;
 @property (nonatomic, strong) Event * event;
-
 @property (nonatomic, strong) MRProgressOverlayView *mrProgressOverLayview;
 
 @end
@@ -58,6 +58,7 @@
     [self.refreshControl addTarget:self action:@selector(getLatestTalks) forControlEvents:UIControlEventValueChanged];
     
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação... \n Isso pode demorar até 30 segundos." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    
     
     [self fetchTalks];
 }
@@ -119,10 +120,11 @@
         cell = [[TalkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellEvent];
     }
     
-    if(indexPath.row % 2 == 0)
+    if(indexPath.row % 2 == 0) {
         cell.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:1];
-    else
+    } else {
         cell.backgroundColor = [UIColor whiteColor];
+    }
     
     
     Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
@@ -350,8 +352,6 @@
     }
 }
 
-
-
 -(void)showMessageError {
     [Messages failMessageWithTitle:nil andMessage:@"Sem conexão com a internet, tente novamente mais tarde"];
 }
@@ -383,5 +383,18 @@
         
         [self.refreshControl endRefreshing];
     }
+}
+
+#pragma mark - Action tap button
+
+- (IBAction)tapFavorite:(id)sender {
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
+    PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
+    
+    [TalkFavoriteDAO saveFavorities:talkObject];
 }
 @end

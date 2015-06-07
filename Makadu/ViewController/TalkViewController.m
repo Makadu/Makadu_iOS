@@ -245,6 +245,8 @@
     [alert show];
 }
 
+#pragma mark - Delegate AlertView
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSLog(@"%@ - %ld", [alertView textFieldAtIndex:0].text, (long)buttonIndex);
     
@@ -256,6 +258,8 @@
         rating.ratingDescription = [alertView textFieldAtIndex:0].text;
     
         [RatingDAO saveRating:rating];
+    } else {
+        self.starRating.rating = [self.ratingSelf.note floatValue];
     }
 }
 @end

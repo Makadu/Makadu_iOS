@@ -16,8 +16,10 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *btnDownload;
 @property (nonatomic, weak) IBOutlet UIButton *btnQuestion;
+@property (nonatomic, weak) IBOutlet UIButton *btnFavorite;
 
 + (CGFloat)calculateCellHeightWithTitle:(NSString *)hourAndTitle localAndDuration:(NSString *)localAndDuration speakers:(NSString *)speakers width:(CGFloat)width;
 
 + (CGFloat)calculateCellHeightWithTitleLabel:(UILabel *)hourAndTitle localAndDuration:(UILabel *)localAndDuration speakers:(UILabel *)speakers width:(CGFloat)width;
+
 @end

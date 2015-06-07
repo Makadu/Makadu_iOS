@@ -69,13 +69,8 @@
     if (![Connection existConnection]) {
         [queryTalk setCachePolicy:kPFCachePolicyCacheOnly];
     } else {
-        if ([queryTalk hasCachedResult]) {
-            [queryTalk setCachePolicy:kPFCachePolicyCacheOnly];
-            [queryTalk setMaxCacheAge:600];
-        } else {
-            [queryTalk setCachePolicy:kPFCachePolicyCacheElseNetwork];
-            [queryTalk setMaxCacheAge:600];
-        }
+        [queryTalk setCachePolicy:kPFCachePolicyNetworkElseCache];
+        [queryTalk setMaxCacheAge:1800];
     }
     PFObject * talkObject = [queryTalk getObjectWithId:talk.talkID];
     return talkObject;

@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EDStarRating/EDStarRating.h>
+
 #import "Talk.h"
 #import "Question.h"
-#import <EDStarRating/EDStarRating.h>
+
 
 @interface TalkViewController : UIViewController <EDStarRatingProtocol,UITableViewDelegate, UITableViewDataSource>
 
