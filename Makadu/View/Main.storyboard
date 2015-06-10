@@ -194,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z38-ye-Ze9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1876" y="22"/>
+            <point key="canvasLocation" x="1876" y="766"/>
         </scene>
         <!--Favoritos-->
         <scene sceneID="P80-xS-tJc">
@@ -237,6 +237,7 @@
                                             </state>
                                             <connections>
                                                 <action selector="tapDownload:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="C6W-SU-WSj"/>
+                                                <action selector="tapDownload:" destination="2cP-aR-rpc" eventType="touchUpInside" id="e6g-wm-yF0"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pet-dj-rCv">
@@ -248,13 +249,17 @@
                                             </state>
                                             <connections>
                                                 <action selector="tapQuestion:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="91V-ep-bsW"/>
+                                                <action selector="tapQuestion:" destination="2cP-aR-rpc" eventType="touchUpInside" id="hwF-8S-qJu"/>
+                                                <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="NID-5o-Zqa"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
-                                            <rect key="frame" x="241" y="120" width="73" height="24"/>
-                                            <state key="normal" title="Button">
+                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
+                                            <rect key="frame" x="262" y="116" width="30" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <state key="normal" image="star_filled.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="highlighted" image="star_empty.png"/>
                                             <connections>
                                                 <action selector="tapFavorite:" destination="2cP-aR-rpc" eventType="touchUpInside" id="tTi-7P-E3X"/>
                                             </connections>
@@ -286,6 +291,7 @@
                                     <outlet property="localAndDuration" destination="8AI-5g-4Pm" id="DTz-Yh-D0H"/>
                                     <outlet property="speakers" destination="KOt-ux-GUL" id="oll-io-apQ"/>
                                     <outlet property="titleAndHourlabel" destination="7R0-xc-sPV" id="4t3-Y4-EIV"/>
+                                    <segue destination="VYw-cf-mfK" kind="show" identifier="talkSegue" id="W4z-3I-35W"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -300,7 +306,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAW-LJ-VDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155" y="797"/>
+            <point key="canvasLocation" x="1876" y="22"/>
         </scene>
         <!--Notice List Table View Controller-->
         <scene sceneID="0hd-qc-yjc">
@@ -353,7 +359,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQg-YS-1Fg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1876" y="774"/>
+            <point key="canvasLocation" x="1155" y="766"/>
         </scene>
         <!--Talk List Table View Controller-->
         <scene sceneID="4Bh-bp-5KB">
@@ -399,7 +405,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWY-r5-50b">
-                                            <rect key="frame" x="116" y="114" width="106" height="24"/>
+                                            <rect key="frame" x="116" y="117" width="106" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="Perguntas" image="pergunta_material.png">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -410,11 +416,16 @@
                                                 <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="gGy-z7-MFH"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-6M-bmF">
-                                            <rect key="frame" x="230" y="117" width="80" height="24"/>
-                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" image="star_empty.png">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <button clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-6M-bmF">
+                                            <rect key="frame" x="263" y="117" width="41" height="24"/>
+                                            <color key="tintColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" image="star_empty.png"/>
+                                            <state key="disabled" image="star_filled.png"/>
+                                            <state key="selected" image="starhighlighted.png">
+                                                <color key="titleColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <state key="highlighted" image="starhighlighted.png">
+                                                <color key="titleColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="tapFavorite:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="emt-wu-cqG"/>
@@ -424,16 +435,16 @@
                                     <constraints>
                                         <constraint firstItem="uWY-r5-50b" firstAttribute="bottom" secondItem="ulg-TS-6Wt" secondAttribute="bottomMargin" constant="4" id="BdZ-YV-5wu"/>
                                         <constraint firstItem="ue1-Ls-n4I" firstAttribute="top" secondItem="MtB-si-7R6" secondAttribute="bottom" constant="8" id="ChT-O1-1zE"/>
+                                        <constraint firstItem="gxW-Bv-zhS" firstAttribute="bottom" secondItem="ulg-TS-6Wt" secondAttribute="bottomMargin" constant="4" id="FBb-rL-p3h"/>
                                         <constraint firstItem="MtB-si-7R6" firstAttribute="top" secondItem="ulg-TS-6Wt" secondAttribute="topMargin" id="P9d-06-pzn"/>
                                         <constraint firstItem="ue1-Ls-n4I" firstAttribute="trailing" secondItem="ulg-TS-6Wt" secondAttribute="trailingMargin" id="Pzo-W1-iOa"/>
-                                        <constraint firstItem="gxW-Bv-zhS" firstAttribute="bottom" secondItem="ulg-TS-6Wt" secondAttribute="bottomMargin" constant="4" id="QaY-s2-pBp"/>
                                         <constraint firstItem="gxW-Bv-zhS" firstAttribute="leading" secondItem="ulg-TS-6Wt" secondAttribute="leadingMargin" id="Umd-BF-pjI"/>
                                         <constraint firstItem="uTF-M8-YyP" firstAttribute="top" secondItem="ue1-Ls-n4I" secondAttribute="bottom" constant="8" id="Xth-Ij-f4o"/>
                                         <constraint firstItem="ue1-Ls-n4I" firstAttribute="leading" secondItem="ulg-TS-6Wt" secondAttribute="leadingMargin" id="bmk-dT-u93"/>
                                         <constraint firstItem="uTF-M8-YyP" firstAttribute="leading" secondItem="ulg-TS-6Wt" secondAttribute="leadingMargin" id="bwD-eQ-FS5"/>
                                         <constraint firstItem="VwW-6M-bmF" firstAttribute="leading" secondItem="uWY-r5-50b" secondAttribute="trailing" constant="8" id="hdh-sw-p1p"/>
                                         <constraint firstItem="uWY-r5-50b" firstAttribute="leading" secondItem="gxW-Bv-zhS" secondAttribute="trailing" constant="8" id="i5a-2E-9Fm"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="VwW-6M-bmF" secondAttribute="bottom" constant="4" id="kOe-Na-CCX"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="VwW-6M-bmF" secondAttribute="bottom" id="kOe-Na-CCX"/>
                                         <constraint firstItem="uTF-M8-YyP" firstAttribute="trailing" secondItem="ulg-TS-6Wt" secondAttribute="trailingMargin" id="lP5-Sj-VKj"/>
                                         <constraint firstItem="gxW-Bv-zhS" firstAttribute="leading" secondItem="ulg-TS-6Wt" secondAttribute="leadingMargin" id="oZI-sG-9Jz"/>
                                         <constraint firstItem="MtB-si-7R6" firstAttribute="trailing" secondItem="ulg-TS-6Wt" secondAttribute="trailingMargin" id="rKB-Ya-fQA"/>
@@ -442,6 +453,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnDownload" destination="gxW-Bv-zhS" id="U5O-6u-AjW"/>
+                                    <outlet property="btnFavorite" destination="VwW-6M-bmF" id="2wX-bB-nsQ"/>
                                     <outlet property="btnQuestion" destination="uWY-r5-50b" id="GDV-Sn-gHJ"/>
                                     <outlet property="localAndDuration" destination="ue1-Ls-n4I" id="6zM-AM-CZY"/>
                                     <outlet property="speakers" destination="uTF-M8-YyP" id="DUk-8u-ZeV"/>
@@ -660,7 +672,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CTR-88-zZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3161" y="-781"/>
+            <point key="canvasLocation" x="3161" y="-767"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KW3-ub-AsY">
@@ -1007,7 +1019,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Zd-Ol-yfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2956" y="-1653"/>
+            <point key="canvasLocation" x="3161" y="22"/>
         </scene>
     </scenes>
     <resources>
@@ -1021,8 +1033,11 @@
         <image name="photo-frame.png" width="297" height="199"/>
         <image name="programacao.png" width="48" height="32"/>
         <image name="star_empty.png" width="25" height="24"/>
+        <image name="star_filled.png" width="25" height="24"/>
+        <image name="starhighlighted.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gGy-z7-MFH"/>
+        <segue reference="NID-5o-Zqa"/>
+        <segue reference="W4z-3I-35W"/>
     </inferredMetricsTieBreakers>
 </document>

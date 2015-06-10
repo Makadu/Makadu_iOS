@@ -26,6 +26,8 @@
 
 @property BOOL allowFile;
 @property BOOL allowQuestion;
+@property BOOL allowFavorite;
 
-
+- (void)toggleFavorite:(BOOL)isFavorite;
+- (BOOL)isFavorite;
 @end

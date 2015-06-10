@@ -51,16 +51,12 @@
     self.navigationController.navigationBar.topItem.title = @"Palestras";
     self.tableView.backgroundColor = [UIColor whiteColor];
     
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor lightGrayColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(getLatestTalks) forControlEvents:UIControlEventValueChanged];
     
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação... \n Isso pode demorar até 30 segundos." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
-    
-    
-    [self fetchTalks];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -72,6 +68,7 @@
         [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Palestras" description:@"O usuário sem acesso a conexão de dados"];
     }
     
+    [self fetchTalks];
     
     self.indexPathSelected = nil;
 }
@@ -116,10 +113,6 @@
     static NSString * cellEvent = @"listTalkCell";
     TalkTableViewCell *cell = (TalkTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:cellEvent];
     
-    if (cell == nil) {
-        cell = [[TalkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellEvent];
-    }
-    
     if(indexPath.row % 2 == 0) {
         cell.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:1];
     } else {
@@ -135,6 +128,9 @@
     cell.speakers.text = [self showSpeakers:talk.speakers];
     [cell.speakers sizeToFit];
     
+    cell.btnFavorite.selected = [talk isFavorite];
+    
+    cell.btnFavorite.hidden = !talk.allowFavorite;
     cell.btnDownload.hidden = !talk.allowFile;
     cell.btnQuestion.hidden = !talk.allowQuestion;
     
@@ -351,10 +347,20 @@
     }
 }
 
--(void)showMessageError {
-    [Messages failMessageWithTitle:nil andMessage:@"Sem conexão com a internet, tente novamente mais tarde"];
+- (IBAction)tapFavorite:(id)sender {
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    TalkTableViewCell * cell = (TalkTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexPathSelected];
+    
+    Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
+    
+    cell.btnFavorite.selected = ![talk isFavorite];
+    cell.btnFavorite.imageView.image = [cell.btnFavorite.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    [talk toggleFavorite:YES];
 }
-
 
 #pragma mark - Update Talks
 
@@ -384,16 +390,9 @@
     }
 }
 
-#pragma mark - Action tap button
-
-- (IBAction)tapFavorite:(id)sender {
-    
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    
-    Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
-    PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
-    
-    [TalkFavoriteDAO saveFavorities:talkObject];
+#pragma mark - other methods
+-(void)showMessageError {
+    [Messages failMessageWithTitle:nil andMessage:@"Sem conexão com a internet, tente novamente mais tarde"];
 }
+
 @end

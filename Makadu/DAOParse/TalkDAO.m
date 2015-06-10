@@ -44,6 +44,7 @@
                 
                 talk.allowFile = [[object objectForKey:@"allow_file"] boolValue];
                 talk.allowQuestion = [[object objectForKey:@"allow_question"] boolValue];
+                talk.allowFavorite = [[object objectForKey:@"allow_favorite"] boolValue];
                 talk.file = [object objectForKey:@"file"];
                 
                 PFRelation *relationSpeaker = [object relationForKey:@"speakers"];

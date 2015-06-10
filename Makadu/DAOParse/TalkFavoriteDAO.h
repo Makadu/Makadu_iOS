@@ -12,5 +12,7 @@
 @interface TalkFavoriteDAO : NSObject
 
 +(void)fetchTalkFavoriteByEvent:(PFObject *)event talks:(void(^)(NSArray* talks))success failure:(void(^)(NSString *errorMessage))failure;
-+(void)saveFavorities:(PFObject *)talk;
+
++(void)saveFavorities:(NSArray *)talks;
++(void)removeFavorite:(NSArray *)talks;
 @end

@@ -17,48 +17,57 @@
     PFQuery *userQuery = [PFUser query];
     [userQuery whereKey:@"objectId" equalTo:[PFUser currentUser].objectId];
     [userQuery includeKey:@"favorities_talks"];
-    [userQuery setCachePolicy:kPFCachePolicyCacheElseNetwork];
-    [userQuery setMaxCacheAge:100];
+    
+    [userQuery orderByAscending:@"start_hour"];
+    
+    if (![Connection existConnection]) {
+        [userQuery setCachePolicy:kPFCachePolicyCacheOnly];
+    } else {
+        [userQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    }
+    
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             PFUser *user = [objects lastObject];
             NSArray *talks = user[@"favorities_talks"];
             NSMutableArray * listTalk = [NSMutableArray new];
-            for (PFObject *object in talks) {
-                if ([((PFObject *)object[@"event"]).objectId isEqualToString:event.objectId]) {
-                    Talk * talk = [Talk new];
-                    talk.talkID = object.objectId;
-                    talk.title = [object objectForKey:@"title"];
-                    talk.talkDescription = [object objectForKey:@"description"];
-                    talk.startHour = [object objectForKey:@"start_hour"];
-                    talk.endHour = [object objectForKey:@"end_hour"];
-                    talk.local = [object objectForKey:@"local"];
-                    talk.url = [object objectForKey:@"link"];
-                    talk.date = [object objectForKey:@"date_talk"];
-                    talk.photo = [object objectForKey:@"photo"];
+            if (talks != nil && [talks count] > 0) {
+                for (PFObject *object in talks) {
+                    if ([((PFObject *)object[@"event"]).objectId isEqualToString:event.objectId]) {
+                        Talk * talk = [Talk new];
+                        talk.talkID = object.objectId;
+                        talk.title = [object objectForKey:@"title"];
+                        talk.talkDescription = [object objectForKey:@"description"];
+                        talk.startHour = [object objectForKey:@"start_hour"];
+                        talk.endHour = [object objectForKey:@"end_hour"];
+                        talk.local = [object objectForKey:@"local"];
+                        talk.url = [object objectForKey:@"link"];
+                        talk.date = [object objectForKey:@"date_talk"];
+                        talk.photo = [object objectForKey:@"photo"];
                 
-                    talk.allowFile = [[object objectForKey:@"allow_file"] boolValue];
-                    talk.allowQuestion = [[object objectForKey:@"allow_question"] boolValue];
-                    talk.file = [object objectForKey:@"file"];
+                        talk.allowFile = [[object objectForKey:@"allow_file"] boolValue];
+                        talk.allowQuestion = [[object objectForKey:@"allow_question"] boolValue];
+                        talk.allowFavorite = [[object objectForKey:@"allow_favorite"] boolValue];
+                        talk.file = [object objectForKey:@"file"];
                 
-                    PFRelation *relationSpeaker = [object relationForKey:@"speakers"];
-                    PFQuery * query = [relationSpeaker query];
-                    if (![Connection existConnection]) {
-                        [query setCachePolicy:kPFCachePolicyCacheOnly];
-                    } else {
-                        [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
-                        [query setMaxCacheAge:600];
+                        PFRelation *relationSpeaker = [object relationForKey:@"speakers"];
+                        PFQuery * query = [relationSpeaker query];
+                        if (![Connection existConnection]) {
+                            [query setCachePolicy:kPFCachePolicyCacheOnly];
+                        } else {
+                            [query setCachePolicy:kPFCachePolicyCacheElseNetwork];
+                            [query setMaxCacheAge:600];
+                        }
+                        [query findObjectsInBackgroundWithBlock:^(NSArray *speakers, NSError *error) {
+                            talk.speakers = speakers;
+                        }];
+                    
+                        [listTalk addObject:talk];
                     }
-                    [query findObjectsInBackgroundWithBlock:^(NSArray *speakers, NSError *error) {
-                        talk.speakers = speakers;
-                    }];
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:talk forKey:@"favoritiesTalks"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    
-                    [listTalk addObject:talk];
                 }
-                success(listTalk);
+                success([[self class] sortedTalkArray:listTalk]);
+            } else {
+                success(@[]);
             }
         } else {
             failure(error.localizedDescription);
@@ -66,11 +75,43 @@
     }];
 }
 
++ (NSArray *)sortedTalkArray:(NSArray *)talks {
+    return [talks sortedArrayUsingComparator:[[self class] _orderByTimeThenRoomComparator]];
+}
 
-+(void)saveFavorities:(PFObject *)talk {
++ (NSComparator)_orderByTimeThenRoomComparator {
+    return ^NSComparisonResult(Talk *talk1, Talk *talk2) {
+        NSComparisonResult timeResult = [talk1.startHour compare:talk2.startHour];
+        if (timeResult != NSOrderedSame) {
+            return timeResult;
+        }
+        return [talk1.startHour compare:talk2.startHour];
+    };
+}
+
+
++(void)saveFavorities:(NSArray *)talks {
+    
+    NSMutableArray *favorites = [PFUser currentUser][@"favorities_talks"];
+    [favorites addObjectsFromArray:talks];
     
     PFUser *user = [PFUser currentUser];
-    [user setObject:@[talk] forKey:@"favorities_talks"];
+    [user setObject:favorites forKey:@"favorities_talks"];
     [user saveInBackground];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++(void)removeFavorite:(NSArray *)talks {
+    
+    NSMutableArray *favorites = [PFUser currentUser][@"favorities_talks"];
+    for (int i = 0; i < favorites.count; i++) {
+        if ([((PFObject *)talks[0]).objectId isEqualToString:((PFObject *)favorites[i]).objectId]) {
+            [favorites removeObject:favorites[i]];
+        }
+    }
+    PFUser *user = [PFUser currentUser];
+    [user setObject:favorites forKey:@"favorities_talks"];
+    [user saveInBackground];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end
