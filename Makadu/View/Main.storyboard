@@ -253,13 +253,18 @@
                                                 <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="NID-5o-Zqa"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
-                                            <rect key="frame" x="262" y="116" width="30" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" image="star_filled.png">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <button clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
+                                            <rect key="frame" x="227" y="89" width="112" height="22"/>
+                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="tintColor" red="0.20784313730000001" green="0.52156862749999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="  Desfavoritar" image="starhighlighted.png">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="highlighted" image="star_empty.png"/>
+                                            <state key="selected" title="  Favoritar" image="star_empty.png">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="highlighted" title="Desfavoritar" image="starhighlighted.png"/>
                                             <connections>
                                                 <action selector="tapFavorite:" destination="2cP-aR-rpc" eventType="touchUpInside" id="tTi-7P-E3X"/>
                                             </connections>
@@ -280,7 +285,7 @@
                                         <constraint firstItem="7R0-xc-sPV" firstAttribute="top" secondItem="ihu-r4-NEX" secondAttribute="topMargin" id="b5u-Ny-CkU"/>
                                         <constraint firstItem="8AI-5g-4Pm" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="b5y-sO-sAL"/>
                                         <constraint firstItem="vKL-4n-O6f" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="etR-Ik-Yfu"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="KiZ-vE-Og0" secondAttribute="bottom" constant="4" id="fDc-rQ-ork"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="KiZ-vE-Og0" secondAttribute="bottom" constant="3" id="fDc-rQ-ork"/>
                                         <constraint firstItem="8AI-5g-4Pm" firstAttribute="trailing" secondItem="ihu-r4-NEX" secondAttribute="trailingMargin" id="v3v-oW-uBz"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -396,7 +401,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gxW-Bv-zhS">
                                             <rect key="frame" x="8" y="114" width="100" height="30"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" title="Download" image="download_material.png">
+                                            <state key="normal" title="  Baixar" image="download_material.png">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -406,10 +411,9 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWY-r5-50b">
                                             <rect key="frame" x="116" y="117" width="106" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" title="Perguntas" image="pergunta_material.png">
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <state key="normal" title="  Perguntar" image="pergunta_material.png">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
                                                 <action selector="tapQuestion:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="NE1-q5-gat"/>
@@ -417,16 +421,16 @@
                                             </connections>
                                         </button>
                                         <button clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VwW-6M-bmF">
-                                            <rect key="frame" x="263" y="117" width="41" height="24"/>
-                                            <color key="tintColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <state key="normal" image="star_empty.png"/>
+                                            <rect key="frame" x="233" y="117" width="111" height="24"/>
+                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="tintColor" red="0.20784313730000001" green="0.52156862749999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" title="  Favoritar" image="star_empty.png">
+                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
                                             <state key="disabled" image="star_filled.png"/>
-                                            <state key="selected" image="starhighlighted.png">
-                                                <color key="titleColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <state key="highlighted" image="starhighlighted.png">
-                                                <color key="titleColor" red="0.30980392159999998" green="0.64313725489999995" blue="0.58039215690000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
+                                            <state key="selected" title="Desfavoritar" image="starhighlighted.png"/>
+                                            <state key="highlighted" image="starhighlighted.png"/>
                                             <connections>
                                                 <action selector="tapFavorite:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="emt-wu-cqG"/>
                                             </connections>

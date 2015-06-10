@@ -128,6 +128,11 @@
     cell.speakers.text = [self showSpeakers:talk.speakers];
     [cell.speakers sizeToFit];
     
+    if ([talk isFavorite])
+        cell.btnFavorite.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
+    else
+        cell.btnFavorite.backgroundColor = [UIColor clearColor];
+    
     cell.btnFavorite.selected = [talk isFavorite];
     
     cell.btnFavorite.hidden = !talk.allowFavorite;
@@ -357,6 +362,7 @@
     Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
     
     cell.btnFavorite.selected = ![talk isFavorite];
+    cell.btnFavorite.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
     cell.btnFavorite.imageView.image = [cell.btnFavorite.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     [talk toggleFavorite:YES];
