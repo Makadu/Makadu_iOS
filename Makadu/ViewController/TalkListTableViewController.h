@@ -13,7 +13,7 @@
 
 #import "ShowEventViewController.h"
 
-@interface TalkListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface TalkListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
 

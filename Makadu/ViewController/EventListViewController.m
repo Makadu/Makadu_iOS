@@ -26,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.eventsFiltered = [NSMutableArray arrayWithCapacity:[self.listEvent count]];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor lightGrayColor];
@@ -51,6 +50,8 @@
     }
     
     [self fetchAllEvents];
+    
+    self.eventsFiltered = [NSMutableArray arrayWithCapacity:[self.listEvent count]];
 }
 
 - (void)getLatestEvents

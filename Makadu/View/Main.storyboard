@@ -374,6 +374,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.42745098040000001" green="0.61568627450000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Pesquisar" id="OqJ-uv-cvE">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" red="0.48216111140000001" green="0.74876783469999997" blue="0.69987420190000005" alpha="0.91000000000000003" colorSpace="calibratedRGB"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="kAn-Sa-MDU" id="yJt-ki-ToT"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="listTalkCell" rowHeight="153" id="fKT-pJ-CGa" customClass="TalkTableViewCell">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -472,8 +482,21 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="" image="programacao.png" id="ffo-My-kQ7"/>
+                    <connections>
+                        <outlet property="eventSearchBar" destination="OqJ-uv-cvE" id="TCQ-tN-MyF"/>
+                        <outlet property="searchDisplayController" destination="0zD-yY-Vh6" id="pQd-oc-XMU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lli-dK-W6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="0zD-yY-Vh6">
+                    <connections>
+                        <outlet property="delegate" destination="kAn-Sa-MDU" id="LbI-gY-gPD"/>
+                        <outlet property="searchBar" destination="OqJ-uv-cvE" id="AG0-wP-tOi"/>
+                        <outlet property="searchContentsController" destination="kAn-Sa-MDU" id="D1K-KK-gNg"/>
+                        <outlet property="searchResultsDataSource" destination="kAn-Sa-MDU" id="Der-aK-mbZ"/>
+                        <outlet property="searchResultsDelegate" destination="kAn-Sa-MDU" id="CPO-Qg-y02"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1876" y="-767"/>
         </scene>
@@ -1041,7 +1064,7 @@
         <image name="starhighlighted.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NID-5o-Zqa"/>
-        <segue reference="W4z-3I-35W"/>
+        <segue reference="gGy-z7-MFH"/>
+        <segue reference="wXO-qc-AJT"/>
     </inferredMetricsTieBreakers>
 </document>

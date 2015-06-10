@@ -30,10 +30,14 @@
 
 @property (nonatomic, strong) NSArray * listTalk;
 @property (nonatomic, strong) NSArray * listDateTalk;
+@property (strong, nonatomic) NSMutableArray *talksFiltered;
+@property (strong, nonatomic) NSArray *talksNoFiltered;
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) PFObject *talkObject;
 @property (nonatomic, strong) Event * event;
 @property (nonatomic, strong) MRProgressOverlayView *mrProgressOverLayview;
+
+@property IBOutlet UISearchBar *eventSearchBar;
 
 @end
 
@@ -70,6 +74,8 @@
     
     [self fetchTalks];
     
+    self.talksFiltered = [NSMutableArray arrayWithCapacity:[self.listTalk count]];
+    
     self.indexPathSelected = nil;
 }
 
@@ -80,30 +86,36 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([self.listDateTalk count] > 0) {
-        return [self.listDateTalk count];
-    } else {
-        if (![Connection existConnection]) {
-            UILabel * messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-            messageLabel.text = @"Não foi possível carregar os dados.";
-            messageLabel.textColor = [UIColor blackColor];
-            messageLabel.numberOfLines = 0;
-            messageLabel.textAlignment = NSTextAlignmentCenter;
-            messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
-            messageLabel.tag = 3000;
-            [messageLabel sizeToFit];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return 1;
+    } else  {
+        if ([self.listDateTalk count] > 0) {
+            return [self.listDateTalk count];
+        } else {
+            if (![Connection existConnection]) {
+                UILabel * messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+                messageLabel.text = @"Não foi possível carregar os dados.";
+                messageLabel.textColor = [UIColor blackColor];
+                messageLabel.numberOfLines = 0;
+                messageLabel.textAlignment = NSTextAlignmentCenter;
+                messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+                messageLabel.tag = 3000;
+                [messageLabel sizeToFit];
         
-            self.tableView.backgroundView = messageLabel;
+                self.tableView.backgroundView = messageLabel;
+            }
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([[self.listTalk objectAtIndex:section][@"group"] count] > 0)
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.talksFiltered count];
+    } else {
         return [[self.listTalk objectAtIndex:section][@"group"] count];
-    return 0;
+    }
 }
 
 #pragma mark - Table view delagate
@@ -119,7 +131,12 @@
         cell.backgroundColor = [UIColor whiteColor];
     }
     
-    Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
+    Talk * talk = [Talk new];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        talk = [self.talksFiltered objectAtIndex:indexPath.row];
+    } else {
+        talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
+    }
     
     cell.titleAndHourlabel.text = [NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title];
     [cell.titleAndHourlabel sizeToFit];
@@ -144,7 +161,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
+    Talk * talk = [Talk new];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        talk = [self.talksFiltered objectAtIndex:indexPath.row];
+    } else {
+        talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
+    }
     
     CGFloat height = [TalkTableViewCell calculateCellHeightWithTitle:[NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title] localAndDuration:[NSString stringWithFormat:@"%@ - %@ às %@", talk.local, talk.startHour, talk.endHour] speakers:[self showSpeakers:talk.speakers] width:[[UIScreen mainScreen] bounds].size.width - 40];
     
@@ -161,17 +183,21 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView * header = [[UIView alloc] init];
-    UILabel * lblHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, [UIScreen mainScreen].bounds.size.width, 13)];
-    lblHeader.text = [self.listDateTalk objectAtIndex:section][@"date"];
-    lblHeader.textColor = [UIColor whiteColor];
-    lblHeader.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12.0f];
-    lblHeader.textAlignment = NSTextAlignmentCenter;
-    [header addSubview:lblHeader];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return nil;
+    } else {
+        UIView * header = [[UIView alloc] init];
+        UILabel * lblHeader = [[UILabel alloc] initWithFrame:CGRectMake(0, 2, [UIScreen mainScreen].bounds.size.width, 13)];
+        lblHeader.text = [self.listDateTalk objectAtIndex:section][@"date"];
+        lblHeader.textColor = [UIColor whiteColor];
+        lblHeader.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12.0f];
+        lblHeader.textAlignment = NSTextAlignmentCenter;
+        [header addSubview:lblHeader];
         
-    header.backgroundColor = [UIColor colorWithRed:(33.0/255.0) green:(145.0/255.0) blue:(114.0/255.0) alpha:1];
+        header.backgroundColor = [UIColor colorWithRed:(33.0/255.0) green:(145.0/255.0) blue:(114.0/255.0) alpha:1];
     
-    return header;
+        return header;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -189,9 +215,14 @@
             indexPath = [self.tableView indexPathForSelectedRow];
         }
         
+        Talk * talk = [Talk new];
+        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+            talk = [self.talksFiltered objectAtIndex:indexPath.row];
+        } else {
+            talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
+        }
+
         TalkViewController *talkViewController = [segue destinationViewController];
-        
-        Talk *talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
@@ -212,7 +243,13 @@
         QuestionViewController *questionViewController = [segue destinationViewController];
         self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
         
-        Talk *talk = [self.listTalk[self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
+        Talk * talk = [Talk new];
+        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+            talk = [self.talksNoFiltered objectAtIndex:self.indexPathSelected.row];
+        } else {
+            talk = [self.listTalk[self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
+        }
+    
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
         if (talkObject != nil) {
@@ -227,6 +264,31 @@
     }
 }
 
+#pragma mark Content Filtering
+-(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    
+    [self.talksFiltered removeAllObjects];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title contains[c] %@",searchText];
+    self.talksFiltered = [NSMutableArray arrayWithArray:[self.talksNoFiltered filteredArrayUsingPredicate:predicate]];
+    
+    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Buscou" screenAccess:@"Lista de Palestras" description:[NSString stringWithFormat:@"O usuário realizou uma busca pela seguinte palavra: %@", searchText]];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    return YES;
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    return YES;
+}
+
 #pragma mark - fetch
 
 -(void)fetchTalks {
@@ -239,6 +301,7 @@
     } else {
         [TalkDAO fetchTalkByEvent:self.showEventViewController.eventObject talks:^(NSArray * objects) {
             self.listTalk = objects;
+            self.talksNoFiltered = objects;
             NSArray *talkDatas = [self sortedDataWithDictionary:[self groupedTalk]];
             self.listTalk = talkDatas;
             self.listDateTalk = talkDatas;
