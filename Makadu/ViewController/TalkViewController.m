@@ -29,7 +29,6 @@
 @interface TalkViewController ()
 
 @property (nonatomic, strong) NSArray *listQuestions;
-@property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 @property (strong, nonatomic) NSNumber *ratingNote;
 @property (strong, nonatomic) Rating *ratingSelf;
 
@@ -69,6 +68,15 @@
     } else {
         [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Detalhe da Palestras" description:@"Usuário sem acesso a conexão de dados."];
     }
+    
+    
+    if ([self.talk isFavorite])
+        self.favoriteButton.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
+    else
+        self.favoriteButton.backgroundColor = [UIColor clearColor];
+    
+    self.favoriteButton.selected = [self.talk isFavorite];
+    
     
     [self fetchQuestions];
 }
@@ -243,6 +251,17 @@
                                           otherButtonTitles:@"Enviar", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
+}
+
+- (IBAction)tapFavorite:(id)sender {
+    
+    if (![self.talk isFavorite])
+        self.favoriteButton.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
+    else
+        self.favoriteButton.backgroundColor = [UIColor clearColor];
+    
+    self.favoriteButton.selected = ![self.talk isFavorite];
+    [self.talk toggleFavorite:![self.talk isFavorite]];
 }
 
 #pragma mark - Delegate AlertView

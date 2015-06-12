@@ -72,9 +72,8 @@
         [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Palestras" description:@"O usuário sem acesso a conexão de dados"];
     }
     
-    [self fetchTalks];
     
-    self.talksFiltered = [NSMutableArray arrayWithCapacity:[self.listTalk count]];
+    [self fetchTalks];
     
     self.indexPathSelected = nil;
 }
@@ -207,25 +206,22 @@
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
+    NSIndexPath *indexPath = nil;
+    
     if ([segue.identifier isEqualToString:@"talkSegue"]) {
-        NSIndexPath *indexPath;
-        if (self.indexPathSelected != nil) {
-            indexPath = self.indexPathSelected;
-        } else {
-            indexPath = [self.tableView indexPathForSelectedRow];
-        }
-        
         Talk * talk = [Talk new];
-        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        if (self.searchDisplayController.active) {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
             talk = [self.talksFiltered objectAtIndex:indexPath.row];
         } else {
+            indexPath = [self.tableView indexPathForSelectedRow];
             talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         }
-
-        TalkViewController *talkViewController = [segue destinationViewController];
         
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
+        TalkViewController *talkViewController = [segue destinationViewController];
         [talkViewController setTalk:talk];
         [talkViewController setTalkObject:talkObject];
         [talkViewController setEventObject:self.showEventViewController.eventObject];
@@ -235,7 +231,6 @@
         } else {
             [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"Usuário sem acesso a conexão de dados."];
         }
-
         
     } else if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
         
@@ -244,10 +239,12 @@
         self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
         
         Talk * talk = [Talk new];
-        if (self.tableView == self.searchDisplayController.searchResultsTableView) {
-            talk = [self.talksNoFiltered objectAtIndex:self.indexPathSelected.row];
+        if (self.searchDisplayController.active) {
+            indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            talk = [self.talksFiltered objectAtIndex:indexPath.row];
         } else {
-            talk = [self.listTalk[self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
+            indexPath = [self.tableView indexPathForSelectedRow];
+            talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         }
     
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];

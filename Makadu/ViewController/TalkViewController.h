@@ -19,11 +19,14 @@
 @property (nonatomic, strong) PFObject *eventObject;
 @property (nonatomic, strong) PFObject *talkObject;
 
-@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) IBOutlet UILabel *localLabel;
+@property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 
-@property (nonatomic, strong) IBOutlet UIButton *questionButton;
-@property (nonatomic, strong) IBOutlet UIButton *downloadButton;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *localLabel;
+
+@property (nonatomic, weak) IBOutlet UIButton * questionButton;
+@property (nonatomic, weak) IBOutlet UIButton * downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton * favoriteButton;
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 

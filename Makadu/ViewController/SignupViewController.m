@@ -72,7 +72,7 @@
         
             [newUser signUpInBackgroundWithBlock:^(BOOL secceeded, NSError * error) {
                 if (error) {
-                    [Messages failMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"Ocorreu um erro inesperado: %@", error.userInfo]];
+                    [Messages failMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"O e-mail selecionado já está em uso. Faça seu login."]];
                     [Analitcs saveDataAnalitcsWithUser:newUser typeOperation:@"Cadastro" screenAccess:@"Cadatre-se" description:[NSString stringWithFormat:@"Ocorreu um erro inesperado: %@", error.localizedDescription]];
                 } else {
                     [Analitcs saveDataAnalitcsWithUser:newUser typeOperation:@"Cadastro" screenAccess:@"Cadatre-se" description:@"O usuario realizou o cadastro com sucesso"];

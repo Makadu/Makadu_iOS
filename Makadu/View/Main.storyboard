@@ -109,7 +109,7 @@
             </objects>
             <point key="canvasLocation" x="176" y="22"/>
         </scene>
-        <!--Event View Controller-->
+        <!--Evento-->
         <scene sceneID="wi7-1E-quL">
             <objects>
                 <viewController id="b9h-Xp-Z5e" customClass="EventViewController" sceneMemberID="viewController">
@@ -182,7 +182,7 @@
                             <constraint firstItem="crW-Dp-bie" firstAttribute="trailing" secondItem="1s7-Wl-4OW" secondAttribute="trailingMargin" id="zvS-V6-Hcm"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="event.png" id="Nfc-ul-HGm"/>
+                    <tabBarItem key="tabBarItem" title="Evento" image="event.png" id="Nfc-ul-HGm"/>
                     <navigationItem key="navigationItem" id="wMj-OY-4Ek"/>
                     <connections>
                         <outlet property="dateLabel" destination="n2d-9N-tNO" id="4aw-eb-IKr"/>
@@ -313,7 +313,7 @@
             </objects>
             <point key="canvasLocation" x="1876" y="22"/>
         </scene>
-        <!--Notice List Table View Controller-->
+        <!--Avisos-->
         <scene sceneID="0hd-qc-yjc">
             <objects>
                 <tableViewController id="cCq-8b-OUo" customClass="NoticeListTableViewController" sceneMemberID="viewController">
@@ -360,13 +360,13 @@
                             <outlet property="delegate" destination="cCq-8b-OUo" id="c6a-GE-sWQ"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="aviso.png" id="BuW-mm-7IQ"/>
+                    <tabBarItem key="tabBarItem" title="Avisos" image="aviso.png" id="BuW-mm-7IQ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQg-YS-1Fg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1155" y="766"/>
         </scene>
-        <!--Talk List Table View Controller-->
+        <!--Programação-->
         <scene sceneID="4Bh-bp-5KB">
             <objects>
                 <tableViewController id="kAn-Sa-MDU" customClass="TalkListTableViewController" sceneMemberID="viewController">
@@ -375,13 +375,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.42745098040000001" green="0.61568627450000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Pesquisar" id="OqJ-uv-cvE">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Pesquisar" id="2mX-e6-XP6">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.42745098040000001" green="0.61568627450000002" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="barTintColor" red="0.48216111140000001" green="0.74876783469999997" blue="0.69987420190000005" alpha="0.91000000000000003" colorSpace="calibratedRGB"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <outlet property="delegate" destination="kAn-Sa-MDU" id="yJt-ki-ToT"/>
+                                <outlet property="delegate" destination="kAn-Sa-MDU" id="uR3-T3-L2j"/>
                             </connections>
                         </searchBar>
                         <prototypes>
@@ -481,20 +482,20 @@
                             <outlet property="delegate" destination="kAn-Sa-MDU" id="4mW-J2-iux"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="" image="programacao.png" id="ffo-My-kQ7"/>
+                    <tabBarItem key="tabBarItem" title="Programação" image="programacao.png" id="ffo-My-kQ7"/>
                     <connections>
-                        <outlet property="eventSearchBar" destination="OqJ-uv-cvE" id="TCQ-tN-MyF"/>
-                        <outlet property="searchDisplayController" destination="0zD-yY-Vh6" id="pQd-oc-XMU"/>
+                        <outlet property="eventSearchBar" destination="2mX-e6-XP6" id="tRQ-Ed-tLN"/>
+                        <outlet property="searchDisplayController" destination="a0N-Hc-n80" id="wem-UW-GvA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lli-dK-W6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="0zD-yY-Vh6">
+                <searchDisplayController id="a0N-Hc-n80">
                     <connections>
-                        <outlet property="delegate" destination="kAn-Sa-MDU" id="LbI-gY-gPD"/>
-                        <outlet property="searchBar" destination="OqJ-uv-cvE" id="AG0-wP-tOi"/>
-                        <outlet property="searchContentsController" destination="kAn-Sa-MDU" id="D1K-KK-gNg"/>
-                        <outlet property="searchResultsDataSource" destination="kAn-Sa-MDU" id="Der-aK-mbZ"/>
-                        <outlet property="searchResultsDelegate" destination="kAn-Sa-MDU" id="CPO-Qg-y02"/>
+                        <outlet property="delegate" destination="kAn-Sa-MDU" id="CyD-fO-j0L"/>
+                        <outlet property="searchBar" destination="2mX-e6-XP6" id="Kvk-xV-Uh8"/>
+                        <outlet property="searchContentsController" destination="kAn-Sa-MDU" id="I1E-8W-cvU"/>
+                        <outlet property="searchResultsDataSource" destination="kAn-Sa-MDU" id="dhv-oO-YSa"/>
+                        <outlet property="searchResultsDelegate" destination="kAn-Sa-MDU" id="PkD-OJ-dRA"/>
                     </connections>
                 </searchDisplayController>
             </objects>
@@ -515,42 +516,6 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-SW-Tqs" customClass="EDStarRating">
                                 <rect key="frame" x="16" y="126" width="568" height="49"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fwC-ms-JtJ">
-                                <rect key="frame" x="0.0" y="551" width="600" height="49"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLs-Hb-FZT">
-                                        <rect key="frame" x="358" y="13" width="106" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Perguntas" image="pergunta_material.png">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="Lbd-FB-KDw"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uI8-Yr-8Ye">
-                                        <rect key="frame" x="136" y="10" width="100" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="Download" image="download_material.png">
-                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tapDownload:" destination="VYw-cf-mfK" eventType="touchUpInside" id="pZI-Rj-rJx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="uI8-Yr-8Ye" firstAttribute="top" secondItem="fwC-ms-JtJ" secondAttribute="top" constant="10" id="1SX-rg-rso"/>
-                                    <constraint firstAttribute="bottom" secondItem="SLs-Hb-FZT" secondAttribute="bottom" constant="10" id="AUA-i9-86X"/>
-                                    <constraint firstAttribute="bottom" secondItem="uI8-Yr-8Ye" secondAttribute="bottom" constant="10" id="EdQ-jz-ufv"/>
-                                    <constraint firstItem="SLs-Hb-FZT" firstAttribute="top" secondItem="fwC-ms-JtJ" secondAttribute="top" constant="10" id="QJT-vY-7Rp"/>
-                                    <constraint firstItem="uI8-Yr-8Ye" firstAttribute="leading" secondItem="fwC-ms-JtJ" secondAttribute="leading" constant="8" id="eSl-LU-4sP"/>
-                                    <constraint firstAttribute="trailing" secondItem="SLs-Hb-FZT" secondAttribute="trailing" constant="8" id="hcV-cs-Pcl"/>
-                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMn-X5-eLi">
                                 <rect key="frame" x="16" y="72" width="568" height="17"/>
@@ -667,6 +632,62 @@
                                     <outlet property="delegate" destination="VYw-cf-mfK" id="Rbf-TB-aZa"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fwC-ms-JtJ">
+                                <rect key="frame" x="0.0" y="502" width="600" height="49"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLs-Hb-FZT">
+                                        <rect key="frame" x="454" y="13" width="106" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Perguntas" image="pergunta_material.png">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="Lbd-FB-KDw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uI8-Yr-8Ye">
+                                        <rect key="frame" x="30" y="10" width="100" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Download" image="download_material.png">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapDownload:" destination="VYw-cf-mfK" eventType="touchUpInside" id="pZI-Rj-rJx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWU-kF-smy">
+                                        <rect key="frame" x="243" y="14" width="116" height="24"/>
+                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="tintColor" red="0.20784313730000001" green="0.52156862749999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="  Favoritos" image="star.png">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" title=" Desfavoritar" image="star-highlighted-template.png"/>
+                                        <state key="highlighted" title="  Desfavoritar" image="star.png">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapFavorite:" destination="VYw-cf-mfK" eventType="touchUpInside" id="jjx-It-M7e"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97368421049999998" green="0.96880139799999998" blue="0.95245682570000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="uI8-Yr-8Ye" firstAttribute="top" secondItem="fwC-ms-JtJ" secondAttribute="top" constant="10" id="1SX-rg-rso"/>
+                                    <constraint firstAttribute="bottom" secondItem="SLs-Hb-FZT" secondAttribute="bottom" constant="10" id="AUA-i9-86X"/>
+                                    <constraint firstAttribute="bottom" secondItem="wWU-kF-smy" secondAttribute="bottom" constant="10" id="BmH-E5-4nq"/>
+                                    <constraint firstAttribute="bottom" secondItem="uI8-Yr-8Ye" secondAttribute="bottom" constant="10" id="EdQ-jz-ufv"/>
+                                    <constraint firstItem="wWU-kF-smy" firstAttribute="leading" secondItem="uI8-Yr-8Ye" secondAttribute="trailing" constant="8" id="JYx-8x-fmc"/>
+                                    <constraint firstItem="SLs-Hb-FZT" firstAttribute="top" secondItem="fwC-ms-JtJ" secondAttribute="top" constant="10" id="QJT-vY-7Rp"/>
+                                    <constraint firstItem="uI8-Yr-8Ye" firstAttribute="leading" secondItem="fwC-ms-JtJ" secondAttribute="leading" constant="8" id="eSl-LU-4sP"/>
+                                    <constraint firstAttribute="trailing" secondItem="SLs-Hb-FZT" secondAttribute="trailing" constant="8" id="hcV-cs-Pcl"/>
+                                    <constraint firstItem="wWU-kF-smy" firstAttribute="top" secondItem="fwC-ms-JtJ" secondAttribute="top" constant="10" id="j7w-QL-kGW"/>
+                                    <constraint firstItem="SLs-Hb-FZT" firstAttribute="leading" secondItem="wWU-kF-smy" secondAttribute="trailing" constant="8" id="n1Y-MW-sEe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -690,6 +711,7 @@
                     </view>
                     <connections>
                         <outlet property="downloadButton" destination="uI8-Yr-8Ye" id="BrM-7h-jkk"/>
+                        <outlet property="favoriteButton" destination="wWU-kF-smy" id="03H-0N-P5C"/>
                         <outlet property="localLabel" destination="Qgd-Pl-rbq" id="AJ3-Oh-Ew7"/>
                         <outlet property="questionButton" destination="SLs-Hb-FZT" id="ReS-b7-syo"/>
                         <outlet property="starRating" destination="jo6-SW-Tqs" id="SMx-RG-jXw"/>
@@ -1050,21 +1072,23 @@
         </scene>
     </scenes>
     <resources>
-        <image name="aviso.png" width="28" height="32"/>
+        <image name="aviso.png" width="28" height="21"/>
         <image name="download_material.png" width="24" height="24"/>
-        <image name="event.png" width="25" height="32"/>
+        <image name="event.png" width="25" height="19"/>
         <image name="logo_makadu.png" width="1092" height="635"/>
         <image name="makadu.png" width="1092" height="635"/>
         <image name="menu2.png" width="60" height="78"/>
         <image name="pergunta_material.png" width="24" height="24"/>
         <image name="photo-frame.png" width="297" height="199"/>
-        <image name="programacao.png" width="48" height="32"/>
+        <image name="programacao.png" width="22" height="22"/>
+        <image name="star-highlighted-template.png" width="16" height="16"/>
+        <image name="star.png" width="16" height="16"/>
         <image name="star_empty.png" width="25" height="24"/>
         <image name="star_filled.png" width="25" height="24"/>
         <image name="starhighlighted.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gGy-z7-MFH"/>
         <segue reference="wXO-qc-AJT"/>
+        <segue reference="Lbd-FB-KDw"/>
     </inferredMetricsTieBreakers>
 </document>
