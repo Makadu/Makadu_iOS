@@ -54,6 +54,7 @@
         } else {
             [Analitcs saveDataAnalitcsWithType:@"Lembrar" screenAccess:@"Relembrar Senha" description:@"O usuário recebeu um e-mail para alterar a sua senha."];
             [PFUser requestPasswordResetForEmail:self.emailTextField.text];
+            [Messages failMessageWithTitle:nil andMessage:@"Acesse seu e-mail para redefinir sua senha"];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }

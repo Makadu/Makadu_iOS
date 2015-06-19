@@ -166,8 +166,13 @@
         case 1:
             lblHeader.text = @"Sobre o Palestrante";
             break;
-        case 2:
+        case 2: {
             lblHeader.text = @"Perguntas";
+            UIButton * btnRefreshQuestion = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 40, -4, 32, 32)];
+            [btnRefreshQuestion setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+            [btnRefreshQuestion addTarget:self action:@selector(fetchQuestions) forControlEvents:UIControlEventTouchUpInside];
+            [header addSubview:btnRefreshQuestion];
+        }
         default:
             break;
     }

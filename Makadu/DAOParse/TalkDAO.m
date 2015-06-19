@@ -19,6 +19,7 @@
     [query whereKey:@"active" equalTo:[NSNumber numberWithBool:YES]];
     [query whereKey:@"objectId" notContainedIn:talksFavorities];
     [query whereKey:@"event" equalTo:event];
+    [query setLimit:800];
     
     [query orderByAscending:@"start_hour"];
     
