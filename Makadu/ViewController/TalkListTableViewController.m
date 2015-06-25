@@ -37,6 +37,8 @@
 @property (nonatomic, strong) Event * event;
 @property (nonatomic, strong) MRProgressOverlayView *mrProgressOverLayview;
 
+@property (nonatomic) BOOL isPositionTable;
+
 @property IBOutlet UISearchBar *eventSearchBar;
 
 @end
@@ -64,6 +66,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    
+    self.isPositionTable = NO;
     
     if (self.showEventViewController.eventObject != nil) {
         [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Palestras" description:@"O usuário acessou a lista de palestras do evento" event:self.showEventViewController.eventObject];
@@ -201,6 +205,18 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 17;
 }
+
+-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+        
+        if(!self.isPositionTable) {
+            [self setTablePosition];
+            self.isPositionTable = YES;
+        }
+    }
+}
+
 
 #pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -458,6 +474,21 @@
 #pragma mark - other methods
 -(void)showMessageError {
     [Messages failMessageWithTitle:nil andMessage:@"Sem conexão com a internet, tente novamente mais tarde"];
+}
+
+-(void)setTablePosition {
+
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"dd/MM/yyyy"];
+    NSDate *now = [[NSDate alloc] init];
+    NSString *dateNow = [format stringFromDate:now];
+
+    for(int i=0; i < self.listDateTalk.count; i++) {
+        if([dateNow isEqualToString:[self.listDateTalk[i] objectForKey:@"date"]]) {
+            NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+        }
+    }
 }
 
 @end
