@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 @interface Event : NSObject
 
@@ -22,6 +23,7 @@
 @property(nonatomic, strong) NSString *endDate;
 @property(nonatomic, strong) PFFile *fileImgEvent;
 @property(nonatomic, strong) PFFile *fileImgPatronage;
+@property(nonatomic, strong) UIImage *imageLoaded;
 
 
 @end

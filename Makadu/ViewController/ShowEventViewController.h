@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUI.h>
+
 #import "Event.h"
 #import "Talk.h"
 
-@interface ShowEventViewController : UITabBarController
+@interface ShowEventViewController : UITabBarController  <UITabBarDelegate>
 
 @property (nonatomic, strong) Event * event;
 @property (nonatomic, strong) PFObject * eventObject;

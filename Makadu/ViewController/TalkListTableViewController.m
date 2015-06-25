@@ -49,7 +49,6 @@
     self.showEventViewController = (ShowEventViewController *)self.tabBarController;
     self.showEventViewController.navigationController.navigationBar.translucent = NO;
     self.tabBarController.tabBar.translucent = NO;
-    
     self.event = self.showEventViewController.event;
     
     self.navigationController.navigationBar.topItem.title = @"Palestras";

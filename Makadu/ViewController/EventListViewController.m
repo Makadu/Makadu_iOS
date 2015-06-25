@@ -18,7 +18,9 @@
 
 @property (strong,nonatomic) NSArray *listEvent;
 @property (strong,nonatomic) NSMutableArray *eventsFiltered;
+
 @property IBOutlet UISearchBar *eventSearchBar;
+
 
 @end
 
@@ -130,6 +132,8 @@
     cell.patronageImage.file = patronage;
     [cell.patronageImage loadInBackground];
     
+    event.imageLoaded = cell.patronageImage.image;
+    
     return cell;
 }
 
@@ -176,7 +180,6 @@
 
 #pragma mark - fetchEvents
 -(void)fetchAllEvents {
-    
     [EventDAO fetchAllEvents: ^(NSArray * objects) {
         self.listEvent = objects;
         [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
