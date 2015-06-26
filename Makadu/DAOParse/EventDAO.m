@@ -42,6 +42,7 @@
                 event.endDate = [DateFormatter formateDateBrazilian:[object objectForKey:@"end_date"] withZone:YES];
                 event.fileImgEvent = [object objectForKey:@"logo"];
                 event.fileImgPatronage = [object objectForKey:@"patronage"];
+                event.fileImgSponsor = [object objectForKey:@"sponsor"];
                 
                 [listEvent addObject:event];
             }

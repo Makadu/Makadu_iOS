@@ -132,7 +132,7 @@
     cell.patronageImage.file = patronage;
     [cell.patronageImage loadInBackground];
     
-    event.imageLoaded = cell.patronageImage.image;
+    event.imageLoaded = [self loadImage:event];
     
     return cell;
 }
@@ -220,4 +220,18 @@
     [PFUser logOut];
     [self performSegueWithIdentifier:@"showLogin" sender:self];
 }
+
+#pragma mark - Other Methods
+
+-(UIImage *)loadImage:(Event *)event {
+    
+    PFFile *sponsor = event.fileImgSponsor;
+    PFImageView *sponsorImage = [PFImageView new];
+    sponsorImage.image = [UIImage imageNamed:@"makadu.png"];
+    sponsorImage.file = sponsor;
+    [sponsorImage loadInBackground];
+    
+    return sponsorImage.image;
+}
+
 @end

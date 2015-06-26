@@ -34,7 +34,7 @@
 
 -(void)addImageView {
     
-    if([self.eventObject objectForKey:@"patronage"]) {
+    if([self.eventObject objectForKey:@"sponsor"]) {
     
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         UIImageView *patronageImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];

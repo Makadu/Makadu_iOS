@@ -23,6 +23,7 @@
 @property(nonatomic, strong) NSString *endDate;
 @property(nonatomic, strong) PFFile *fileImgEvent;
 @property(nonatomic, strong) PFFile *fileImgPatronage;
+@property(nonatomic, strong) PFFile *fileImgSponsor;
 @property(nonatomic, strong) UIImage *imageLoaded;
 
 
