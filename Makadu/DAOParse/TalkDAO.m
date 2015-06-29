@@ -81,6 +81,26 @@
     return talkObject;
 }
 
+
++(void)fetchTalkByTalkIdInBackGround:(Talk *)talk talks:(void(^)(PFObject* talkObject))success failure:(void(^)(NSString *errorMessage))failure {
+    
+    PFQuery * queryTalk = [PFQuery queryWithClassName:@"Talks"];
+    if (![Connection existConnection]) {
+        [queryTalk setCachePolicy:kPFCachePolicyCacheOnly];
+    } else {
+        [queryTalk setCachePolicy:kPFCachePolicyNetworkElseCache];
+        [queryTalk setMaxCacheAge:1800];
+    }
+    [queryTalk getObjectInBackgroundWithId:talk.talkID block:^(PFObject *talkObject, NSError *error) {
+        if(!error) {
+            success(talkObject);
+        } else {
+            failure(@"Error");
+        }
+    }];
+    
+}
+
 +(NSArray *)getTalkFavoritiesIds {
     
     NSArray * talks = [PFUser currentUser][@"favorities_talks"];

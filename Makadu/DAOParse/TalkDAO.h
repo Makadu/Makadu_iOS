@@ -15,5 +15,7 @@
 
 +(void)fetchTalkByEvent:(PFObject *)event talks:(void(^)(NSArray* talks))success failure:(void(^)(NSString *errorMessage))failure;
 
++(void)fetchTalkByTalkIdInBackGround:(Talk *)talk talks:(void(^)(PFObject* talkObject))success failure:(void(^)(NSString *errorMessage))failure;
+
 +(PFObject *)fetchTalkByTalkId:(Talk *)talk;
 @end

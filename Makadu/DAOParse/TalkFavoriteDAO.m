@@ -91,11 +91,12 @@
 
 
 +(void)saveFavorities:(NSArray *)talks {
-    
-    NSMutableArray *favorites = [PFUser currentUser][@"favorities_talks"];
-    [favorites addObjectsFromArray:talks];
-    
+
     PFUser *user = [PFUser currentUser];
+    
+    NSMutableArray *favorites = [[NSMutableArray alloc] initWithArray:user[@"favorities_talks"]];
+    [favorites addObjectsFromArray:talks];
+
     [user setObject:favorites forKey:@"favorities_talks"];
     [user saveInBackground];
     [[NSUserDefaults standardUserDefaults] synchronize];

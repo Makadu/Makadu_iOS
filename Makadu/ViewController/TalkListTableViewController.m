@@ -61,7 +61,7 @@
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(getLatestTalks) forControlEvents:UIControlEventValueChanged];
     
-    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação... \n Isso pode demorar até 30 segundos." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação..." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated {

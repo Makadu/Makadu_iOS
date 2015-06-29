@@ -16,21 +16,20 @@
     if (![PFUser currentUser]) {
         return;
     }
-    NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favorities_talks"];
-    
-    PFObject * talk = [TalkDAO fetchTalkByTalkId:self];
-    
-    if (isFavorite) {
-        if (favorites == nil) {
-            favorites = @[ talk ];
+    [TalkDAO fetchTalkByTalkIdInBackGround:self talks:^(PFObject *talk){
+        NSArray *favorites = [[NSUserDefaults standardUserDefaults] objectForKey:@"favorities_talks"];
+        if (isFavorite) {
+            if (favorites == nil)
+                favorites = @[ talk ];
+            else
+                favorites = [favorites arrayByAddingObject:talk];
+            [TalkFavoriteDAO saveFavorities:favorites];
         } else {
-            favorites = [favorites arrayByAddingObject:talk];
+            [TalkFavoriteDAO removeFavorite:@[talk]];
         }
-        [TalkFavoriteDAO saveFavorities:favorites];
-    } else {
-        
-        [TalkFavoriteDAO removeFavorite:@[talk]];
-    }
+    } failure:^(NSString * error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (BOOL)isFavorite {
