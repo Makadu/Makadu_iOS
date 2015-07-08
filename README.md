@@ -1,5 +1,12 @@
 # Makadu iOS App
 
+<p align="center" >
+  <img src="https://cloud.githubusercontent.com/assets/1221152/8562825/7df53c78-250d-11e5-9fb1-f56e1237e48d.png" alt="Screen Shot" title="Makadu">
+</p>
+
+
+
+
 Makadu é um aplicativo para eventos que permite aos participantes acessar a programação atualizada, tirar dúvidas a qualquer momento da palestra e ter acesso ao conteúdo do palestrante.
 
 #Setup 
