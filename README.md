@@ -4,4 +4,4 @@ Makadu é um aplicativo para eventos que permite aos participantes acessar a pro
 
 #Setup 
 
-Para utilizar o código da Makadu você 
+Primeiramente crie uma conta no [Parse](http://parse.com)
