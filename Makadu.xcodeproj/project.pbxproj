@@ -10,6 +10,22 @@
 		0006262A1B110ACF00B7F678 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 000626291B110ACF00B7F678 /* main.m */; };
 		0006262D1B110ACF00B7F678 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0006262C1B110ACF00B7F678 /* AppDelegate.m */; };
 		000626351B110AD000B7F678 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000626341B110AD000B7F678 /* Images.xcassets */; };
+		001715301B4CC3B20025389F /* _Installation.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715201B4CC3B20025389F /* _Installation.json */; };
+		001715311B4CC3B20025389F /* _Join:favoriteTalks:_User.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715211B4CC3B20025389F /* _Join:favoriteTalks:_User.json */; };
+		001715321B4CC3B20025389F /* _Join:roles:_Role.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715221B4CC3B20025389F /* _Join:roles:_Role.json */; };
+		001715331B4CC3B20025389F /* _Join:speakers:Talks.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715231B4CC3B20025389F /* _Join:speakers:Talks.json */; };
+		001715341B4CC3B20025389F /* _Join:users:_Role.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715241B4CC3B20025389F /* _Join:users:_Role.json */; };
+		001715351B4CC3B20025389F /* _Product.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715251B4CC3B20025389F /* _Product.json */; };
+		001715361B4CC3B20025389F /* _Role.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715261B4CC3B20025389F /* _Role.json */; };
+		001715371B4CC3B20025389F /* _User.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715271B4CC3B20025389F /* _User.json */; };
+		001715381B4CC3B20025389F /* Analitics.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715281B4CC3B20025389F /* Analitics.json */; };
+		001715391B4CC3B20025389F /* Events.json in Resources */ = {isa = PBXBuildFile; fileRef = 001715291B4CC3B20025389F /* Events.json */; };
+		0017153A1B4CC3B20025389F /* Notices.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152A1B4CC3B20025389F /* Notices.json */; };
+		0017153B1B4CC3B20025389F /* Questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152B1B4CC3B20025389F /* Questions.json */; };
+		0017153C1B4CC3B20025389F /* Rating.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152C1B4CC3B20025389F /* Rating.json */; };
+		0017153D1B4CC3B20025389F /* Requests.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152D1B4CC3B20025389F /* Requests.json */; };
+		0017153E1B4CC3B20025389F /* Schedule.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152E1B4CC3B20025389F /* Schedule.json */; };
+		0017153F1B4CC3B20025389F /* Talks.json in Resources */ = {isa = PBXBuildFile; fileRef = 0017152F1B4CC3B20025389F /* Talks.json */; };
 		001E41421B229F9A00911898 /* TalkFavoriteListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001E41411B229F9A00911898 /* TalkFavoriteListTableViewController.m */; };
 		001E41431B229F9A00911898 /* TalkFavoriteListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 001E41411B229F9A00911898 /* TalkFavoriteListTableViewController.m */; };
 		001E41461B229FF900911898 /* TalkFavoriteDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 001E41451B229FF900911898 /* TalkFavoriteDAO.m */; };
@@ -145,6 +161,22 @@
 		0006263D1B110AD000B7F678 /* MakaduTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MakaduTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		000626421B110AD000B7F678 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		000626431B110AD000B7F678 /* MakaduTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MakaduTests.m; sourceTree = "<group>"; };
+		001715201B4CC3B20025389F /* _Installation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = _Installation.json; sourceTree = "<group>"; };
+		001715211B4CC3B20025389F /* _Join:favoriteTalks:_User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:favoriteTalks:_User.json"; sourceTree = "<group>"; };
+		001715221B4CC3B20025389F /* _Join:roles:_Role.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:roles:_Role.json"; sourceTree = "<group>"; };
+		001715231B4CC3B20025389F /* _Join:speakers:Talks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:speakers:Talks.json"; sourceTree = "<group>"; };
+		001715241B4CC3B20025389F /* _Join:users:_Role.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "_Join:users:_Role.json"; sourceTree = "<group>"; };
+		001715251B4CC3B20025389F /* _Product.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = _Product.json; sourceTree = "<group>"; };
+		001715261B4CC3B20025389F /* _Role.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = _Role.json; sourceTree = "<group>"; };
+		001715271B4CC3B20025389F /* _User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = _User.json; sourceTree = "<group>"; };
+		001715281B4CC3B20025389F /* Analitics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Analitics.json; sourceTree = "<group>"; };
+		001715291B4CC3B20025389F /* Events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Events.json; sourceTree = "<group>"; };
+		0017152A1B4CC3B20025389F /* Notices.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Notices.json; sourceTree = "<group>"; };
+		0017152B1B4CC3B20025389F /* Questions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Questions.json; sourceTree = "<group>"; };
+		0017152C1B4CC3B20025389F /* Rating.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Rating.json; sourceTree = "<group>"; };
+		0017152D1B4CC3B20025389F /* Requests.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Requests.json; sourceTree = "<group>"; };
+		0017152E1B4CC3B20025389F /* Schedule.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Schedule.json; sourceTree = "<group>"; };
+		0017152F1B4CC3B20025389F /* Talks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Talks.json; sourceTree = "<group>"; };
 		001E41401B229F9A00911898 /* TalkFavoriteListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkFavoriteListTableViewController.h; sourceTree = "<group>"; };
 		001E41411B229F9A00911898 /* TalkFavoriteListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkFavoriteListTableViewController.m; sourceTree = "<group>"; };
 		001E41441B229FF900911898 /* TalkFavoriteDAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkFavoriteDAO.h; sourceTree = "<group>"; };
@@ -315,6 +347,7 @@
 		000626261B110ACF00B7F678 /* Makadu */ = {
 			isa = PBXGroup;
 			children = (
+				0017151F1B4CC38A0025389F /* data */,
 				00536AB31B13C007002B9845 /* Components */,
 				00536A051B12AD2A002B9845 /* View */,
 				00536A041B12AD20002B9845 /* Util */,
@@ -427,6 +460,29 @@
 			children = (
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		0017151F1B4CC38A0025389F /* data */ = {
+			isa = PBXGroup;
+			children = (
+				001715201B4CC3B20025389F /* _Installation.json */,
+				001715211B4CC3B20025389F /* _Join:favoriteTalks:_User.json */,
+				001715221B4CC3B20025389F /* _Join:roles:_Role.json */,
+				001715231B4CC3B20025389F /* _Join:speakers:Talks.json */,
+				001715241B4CC3B20025389F /* _Join:users:_Role.json */,
+				001715251B4CC3B20025389F /* _Product.json */,
+				001715261B4CC3B20025389F /* _Role.json */,
+				001715271B4CC3B20025389F /* _User.json */,
+				001715281B4CC3B20025389F /* Analitics.json */,
+				001715291B4CC3B20025389F /* Events.json */,
+				0017152A1B4CC3B20025389F /* Notices.json */,
+				0017152B1B4CC3B20025389F /* Questions.json */,
+				0017152C1B4CC3B20025389F /* Rating.json */,
+				0017152D1B4CC3B20025389F /* Requests.json */,
+				0017152E1B4CC3B20025389F /* Schedule.json */,
+				0017152F1B4CC3B20025389F /* Talks.json */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 		00536A031B12AD04002B9845 /* Resources */ = {
@@ -648,35 +704,51 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0017153C1B4CC3B20025389F /* Rating.json in Resources */,
+				001715341B4CC3B20025389F /* _Join:users:_Role.json in Resources */,
 				00536AF41B160E35002B9845 /* download_material.png in Resources */,
+				0017153D1B4CC3B20025389F /* Requests.json in Resources */,
 				001E414D1B23EC3300911898 /* star_empty.png in Resources */,
 				00536A0A1B12AE1A002B9845 /* Main.storyboard in Resources */,
+				001715331B4CC3B20025389F /* _Join:speakers:Talks.json in Resources */,
+				001715371B4CC3B20025389F /* _User.json in Resources */,
 				004335DE1B1F96B700EE0693 /* star-template@2x.png in Resources */,
 				00536A081B12AE1A002B9845 /* LaunchScreen.xib in Resources */,
 				00536A7F1B12F00A002B9845 /* photo-frame.png in Resources */,
 				00536AF71B160EBB002B9845 /* pergunta_material.png in Resources */,
+				001715321B4CC3B20025389F /* _Join:roles:_Role.json in Resources */,
+				001715351B4CC3B20025389F /* _Product.json in Resources */,
 				00536A661B12EFF9002B9845 /* event@2x.png in Resources */,
 				00536A651B12EFF9002B9845 /* event@1x.png in Resources */,
 				001E414B1B23EA9000911898 /* star_empty@2x.png in Resources */,
 				00536A5B1B12EFF9002B9845 /* aviso@2x.png in Resources */,
+				001715391B4CC3B20025389F /* Events.json in Resources */,
 				00FA70531B2695EA00F4D2F8 /* star_filled.png in Resources */,
 				00536A671B12EFF9002B9845 /* event@3x.png in Resources */,
 				001E41491B23EA0C00911898 /* star_filled@2x.png in Resources */,
 				00536A641B12EFF9002B9845 /* event.png in Resources */,
 				00D32D841B1C0D8D00938042 /* logo_makadu.png in Resources */,
 				004335E41B1FA38B00EE0693 /* star.png in Resources */,
+				001715311B4CC3B20025389F /* _Join:favoriteTalks:_User.json in Resources */,
 				00536A721B12EFF9002B9845 /* programacao@2x.png in Resources */,
 				000626351B110AD000B7F678 /* Images.xcassets in Resources */,
 				00536A701B12EFF9002B9845 /* programacao.png in Resources */,
 				004335DB1B1F96B700EE0693 /* star-highlighted-template.png in Resources */,
+				001715301B4CC3B20025389F /* _Installation.json in Resources */,
 				004335DC1B1F96B700EE0693 /* star-highlighted-template@2x.png in Resources */,
 				009ADDD11B33C649005B13C5 /* refresh.png in Resources */,
 				00536A5A1B12EFF9002B9845 /* aviso@1x.png in Resources */,
+				0017153E1B4CC3B20025389F /* Schedule.json in Resources */,
 				00536A711B12EFF9002B9845 /* programacao@1x.png in Resources */,
+				0017153A1B4CC3B20025389F /* Notices.json in Resources */,
+				001715381B4CC3B20025389F /* Analitics.json in Resources */,
 				00536A801B12F00A002B9845 /* photo-frame@2x.png in Resources */,
 				00536A591B12EFF9002B9845 /* aviso.png in Resources */,
 				00536A7D1B12F00A002B9845 /* eventImage.jpg in Resources */,
 				00536A5C1B12EFF9002B9845 /* aviso@3x.png in Resources */,
+				0017153F1B4CC3B20025389F /* Talks.json in Resources */,
+				001715361B4CC3B20025389F /* _Role.json in Resources */,
+				0017153B1B4CC3B20025389F /* Questions.json in Resources */,
 				00536A7E1B12F00A002B9845 /* makadu.png in Resources */,
 				00536A731B12EFF9002B9845 /* programacao@3x.png in Resources */,
 				004335DD1B1F96B700EE0693 /* star-template.png in Resources */,
