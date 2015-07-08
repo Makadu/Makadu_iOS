@@ -27,6 +27,8 @@ Para concluir, no Xcode abra o arquivo AppDelegate.m no método didFinishLaunchi
 }
 ```
 
+Pronto agora você já pode utilizar o código da Makadu.
+
 
 
 
