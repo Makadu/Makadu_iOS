@@ -4,4 +4,29 @@ Makadu é um aplicativo para eventos que permite aos participantes acessar a pro
 
 #Setup 
 
-Primeiramente crie uma conta no [Parse](http://parse.com)
+Primeiramente crie uma conta no [Parse](http://parse.com), caso ainda não tenha. Após acessar o [Parse](http://parse.com) crie uma app e importe os arquivos .json que se localizam dentro da pasta data, que se localiza na estrutura do projeto. Crie alguns dados no parse.
+
+A segunda parte que você deve realizar é pegar as chaves Application ID e Client Key de sua conta no [Parse](http://parse.com). Para saber quais são as suas chaves acesse o Parse com a sua conta, selecione a sua app, vá em Settings->Keys.
+
+Para concluir, no Xcode abra o arquivo AppDelegate.m no método didFinishLaunchingWithOptions, cole as chaves em seus respectivos lugares. Deve ficar algo parecido com isso:
+
+```objective-c
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //Production
+    [Parse setApplicationId:@"COLOQUE A APPLICATION ID AQUI"
+                  clientKey:@"COLOQUE A CLIENT KEY AQUI"];
+    
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:(121.0/255.0) green:(175.0/255.0) blue:(168.0/255.0) alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    
+    return YES;
+}
+```
+
+
+
+
