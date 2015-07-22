@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Localytics.h"
 
 @interface AppDelegate ()
 
@@ -26,6 +27,20 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    
+    [Localytics autoIntegrate:@"" launchOptions:launchOptions];
+    
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
+    {
+        UIUserNotificationType types = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    }
+    else
+    {
+        [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+    }
     
     return YES;
 }

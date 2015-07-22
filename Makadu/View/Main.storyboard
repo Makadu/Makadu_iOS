@@ -201,7 +201,7 @@
             <objects>
                 <tableViewController id="2cP-aR-rpc" customClass="TalkFavoriteListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yXR-aU-K1S">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -211,25 +211,30 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Hora e Titulo" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7R0-xc-sPV">
-                                            <rect key="frame" x="8" y="8" width="551" height="21"/>
+                                            <rect key="frame" x="58" y="8" width="509" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.70999999999999996" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="local" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8AI-5g-4Pm">
-                                            <rect key="frame" x="8" y="37" width="551" height="21"/>
+                                            <rect key="frame" x="58" y="37" width="509" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="speakers" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOt-ux-GUL">
-                                            <rect key="frame" x="8" y="66" width="551" height="21"/>
+                                            <rect key="frame" x="58" y="61" width="509" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKL-4n-O6f">
-                                            <rect key="frame" x="8" y="114" width="100" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKL-4n-O6f">
+                                            <rect key="frame" x="58" y="100" width="104" height="44"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="44" id="FSU-i1-uoL"/>
+                                                <constraint firstAttribute="width" constant="104" id="VF5-Nf-CtI"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="Download" image="download_material.png">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -240,54 +245,93 @@
                                                 <action selector="tapDownload:" destination="2cP-aR-rpc" eventType="touchUpInside" id="e6g-wm-yF0"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pet-dj-rCv">
-                                            <rect key="frame" x="116" y="114" width="106" height="24"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgg-dA-d5I">
+                                            <rect key="frame" x="-2" y="0.0" width="52" height="144"/>
+                                            <subviews>
+                                                <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
+                                                    <rect key="frame" x="-2" y="0.0" width="53" height="144"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="53" id="UN9-XV-fcs"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="tintColor" red="0.20784313730000001" green="0.52156862749999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" image="star_selected.png">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" title="  Favoritar" image="star_empty.png">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <state key="highlighted" title="Desfavoritar" image="starhighlighted.png"/>
+                                                    <connections>
+                                                        <action selector="tapFavorite:" destination="2cP-aR-rpc" eventType="touchUpInside" id="tTi-7P-E3X"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="KiZ-vE-Og0" secondAttribute="bottom" id="Ja6-W5-cNN"/>
+                                                <constraint firstItem="KiZ-vE-Og0" firstAttribute="top" secondItem="bgg-dA-d5I" secondAttribute="top" id="NKM-ny-Kim"/>
+                                                <constraint firstAttribute="trailing" secondItem="KiZ-vE-Og0" secondAttribute="trailing" constant="1" id="wwg-yt-b6G"/>
+                                                <constraint firstAttribute="width" constant="52" id="x18-cF-t6U"/>
+                                                <constraint firstItem="KiZ-vE-Og0" firstAttribute="leading" secondItem="bgg-dA-d5I" secondAttribute="leading" constant="-2" id="xRh-dw-I7V"/>
+                                            </constraints>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pet-dj-rCv">
+                                            <rect key="frame" x="170" y="100" width="172" height="44"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="172" id="3RF-zi-gWt"/>
+                                                <constraint firstAttribute="height" constant="44" id="L78-ma-2ll"/>
+                                                <constraint firstAttribute="height" constant="44" id="YHD-gR-gYK"/>
+                                                <constraint firstAttribute="width" constant="179" id="h0S-Pc-yfW"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="Perguntas" image="pergunta_material.png">
                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="YHD-gR-gYK"/>
+                                                    <exclude reference="h0S-Pc-yfW"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <action selector="tapQuestion:" destination="kAn-Sa-MDU" eventType="touchUpInside" id="91V-ep-bsW"/>
                                                 <action selector="tapQuestion:" destination="2cP-aR-rpc" eventType="touchUpInside" id="hwF-8S-qJu"/>
                                                 <segue destination="sg9-7K-xRk" kind="presentation" identifier="addQuestionSegue" id="NID-5o-Zqa"/>
                                             </connections>
                                         </button>
-                                        <button clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KiZ-vE-Og0">
-                                            <rect key="frame" x="227" y="89" width="112" height="22"/>
-                                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="tintColor" red="0.20784313730000001" green="0.52156862749999999" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <state key="normal" title="  Desfavoritar" image="starhighlighted.png">
-                                                <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <state key="selected" title="  Favoritar" image="star_empty.png">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <state key="highlighted" title="Desfavoritar" image="starhighlighted.png"/>
-                                            <connections>
-                                                <action selector="tapFavorite:" destination="2cP-aR-rpc" eventType="touchUpInside" id="tTi-7P-E3X"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="7R0-xc-sPV" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="2bi-1p-bBh"/>
-                                        <constraint firstItem="KiZ-vE-Og0" firstAttribute="leading" secondItem="pet-dj-rCv" secondAttribute="trailing" constant="8" id="7jg-q0-m81"/>
-                                        <constraint firstItem="pet-dj-rCv" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" constant="4" id="8Zm-b1-TAX"/>
-                                        <constraint firstItem="8AI-5g-4Pm" firstAttribute="top" secondItem="7R0-xc-sPV" secondAttribute="bottom" constant="8" id="8e4-s8-E4U"/>
-                                        <constraint firstItem="vKL-4n-O6f" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" constant="4" id="9NZ-P4-j6T"/>
-                                        <constraint firstItem="KOt-ux-GUL" firstAttribute="trailing" secondItem="ihu-r4-NEX" secondAttribute="trailingMargin" id="9Us-4g-p0j"/>
-                                        <constraint firstItem="KOt-ux-GUL" firstAttribute="top" secondItem="8AI-5g-4Pm" secondAttribute="bottom" constant="8" id="GG8-fj-QFR"/>
-                                        <constraint firstItem="7R0-xc-sPV" firstAttribute="trailing" secondItem="ihu-r4-NEX" secondAttribute="trailingMargin" id="WdO-os-9ZG"/>
-                                        <constraint firstItem="vKL-4n-O6f" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="YpD-kV-kYF"/>
-                                        <constraint firstItem="KOt-ux-GUL" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="aGh-sY-fhC"/>
-                                        <constraint firstItem="pet-dj-rCv" firstAttribute="leading" secondItem="vKL-4n-O6f" secondAttribute="trailing" constant="8" id="aIJ-WO-CRh"/>
-                                        <constraint firstItem="7R0-xc-sPV" firstAttribute="top" secondItem="ihu-r4-NEX" secondAttribute="topMargin" id="b5u-Ny-CkU"/>
-                                        <constraint firstItem="8AI-5g-4Pm" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="b5y-sO-sAL"/>
-                                        <constraint firstItem="vKL-4n-O6f" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" id="etR-Ik-Yfu"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="KiZ-vE-Og0" secondAttribute="bottom" constant="3" id="fDc-rQ-ork"/>
-                                        <constraint firstItem="8AI-5g-4Pm" firstAttribute="trailing" secondItem="ihu-r4-NEX" secondAttribute="trailingMargin" id="v3v-oW-uBz"/>
+                                        <constraint firstItem="8AI-5g-4Pm" firstAttribute="top" secondItem="7R0-xc-sPV" secondAttribute="bottom" constant="8" id="55d-VX-d5U"/>
+                                        <constraint firstItem="7R0-xc-sPV" firstAttribute="leading" secondItem="bgg-dA-d5I" secondAttribute="trailing" constant="8" id="7uK-0Q-lkv"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="pet-dj-rCv" secondAttribute="trailing" constant="-8" id="8mR-Q5-pst"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="8AI-5g-4Pm" secondAttribute="trailing" id="DeT-VX-OGa"/>
+                                        <constraint firstItem="pet-dj-rCv" firstAttribute="leading" secondItem="vKL-4n-O6f" secondAttribute="trailing" constant="8" id="MuY-bE-xHM"/>
+                                        <constraint firstItem="8AI-5g-4Pm" firstAttribute="leading" secondItem="bgg-dA-d5I" secondAttribute="trailing" constant="8" id="PDO-wK-pr6"/>
+                                        <constraint firstItem="bgg-dA-d5I" firstAttribute="leading" secondItem="ihu-r4-NEX" secondAttribute="leadingMargin" constant="-10" id="Rlx-Cj-ZQt"/>
+                                        <constraint firstItem="pet-dj-rCv" firstAttribute="leading" secondItem="vKL-4n-O6f" secondAttribute="trailing" constant="8" id="UgG-33-yjn"/>
+                                        <constraint firstItem="KOt-ux-GUL" firstAttribute="leading" secondItem="bgg-dA-d5I" secondAttribute="trailing" constant="8" id="b1O-T4-Tex"/>
+                                        <constraint firstItem="vKL-4n-O6f" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" id="bDg-6j-f1U"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="KOt-ux-GUL" secondAttribute="trailing" id="dFq-9z-r4Z"/>
+                                        <constraint firstItem="KOt-ux-GUL" firstAttribute="top" secondItem="8AI-5g-4Pm" secondAttribute="bottom" constant="3" id="ey4-tj-1BG"/>
+                                        <constraint firstItem="pet-dj-rCv" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" id="h6j-7b-YPr"/>
+                                        <constraint firstItem="bgg-dA-d5I" firstAttribute="top" secondItem="ihu-r4-NEX" secondAttribute="topMargin" constant="-8" id="heZ-tC-cth"/>
+                                        <constraint firstItem="pet-dj-rCv" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" id="hi2-0i-DSM"/>
+                                        <constraint firstItem="7R0-xc-sPV" firstAttribute="top" secondItem="ihu-r4-NEX" secondAttribute="topMargin" id="isy-t2-9C0"/>
+                                        <constraint firstItem="vKL-4n-O6f" firstAttribute="leading" secondItem="bgg-dA-d5I" secondAttribute="trailing" constant="8" id="nYl-lM-mxE"/>
+                                        <constraint firstItem="bgg-dA-d5I" firstAttribute="bottom" secondItem="ihu-r4-NEX" secondAttribute="bottomMargin" id="pW0-qF-Hgg"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7R0-xc-sPV" secondAttribute="trailing" id="xmM-tR-ehL"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="UgG-33-yjn"/>
+                                            <exclude reference="h6j-7b-YPr"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="btnDownload" destination="vKL-4n-O6f" id="ekl-JG-lng"/>
@@ -308,10 +352,11 @@
                     <tabBarItem key="tabBarItem" title="Favoritos" image="star_empty.png" id="xyz-7a-L4v">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAW-LJ-VDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1876" y="22"/>
+            <point key="canvasLocation" x="1875.5" y="21.5"/>
         </scene>
         <!--Avisos-->
         <scene sceneID="0hd-qc-yjc">
@@ -412,8 +457,8 @@
                                         <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="onT-aQ-Wck">
                                             <rect key="frame" x="-2" y="8" width="52" height="136"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXH-4V-sMe">
-                                                    <rect key="frame" x="-1" y="0.0" width="53" height="136"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXH-4V-sMe">
+                                                    <rect key="frame" x="-2" y="0.0" width="53" height="136"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="53" id="dPe-fw-mvc"/>
@@ -1112,10 +1157,11 @@
         <image name="star-highlighted-template.png" width="16" height="16"/>
         <image name="star.png" width="16" height="16"/>
         <image name="star_empty.png" width="32" height="32"/>
+        <image name="star_selected.png" width="32" height="32"/>
         <image name="starhighlighted.png" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wXO-qc-AJT"/>
-        <segue reference="gGy-z7-MFH"/>
+        <segue reference="W4z-3I-35W"/>
+        <segue reference="NID-5o-Zqa"/>
     </inferredMetricsTieBreakers>
 </document>

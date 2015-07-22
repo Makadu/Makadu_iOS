@@ -146,6 +146,8 @@
     [cell.speakers sizeToFit];
     
     cell.btnFavorite.backgroundColor = cell.backgroundColor;
+    cell.btnDownload.backgroundColor = cell.backgroundColor;
+    cell.btnQuestion.backgroundColor = cell.backgroundColor;
     
     cell.btnFavorite.selected = [talk isFavorite];
     

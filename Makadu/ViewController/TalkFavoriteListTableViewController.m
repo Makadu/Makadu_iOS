@@ -102,6 +102,11 @@
     static NSString * cellEvent = @"listTalkCell";
     TalkTableViewCell *cell = (TalkTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:cellEvent];
     
+    [cell.btnFavorite setImage:[UIImage imageNamed:@"star_selected.png"] forState:UIControlStateNormal];
+    [cell.btnFavorite setImage:[UIImage imageNamed:@"star_empty.png"] forState:UIControlStateSelected];
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    [cell setTintColor:[UIColor blackColor]];
+    
     if (cell == nil) {
         cell = [[TalkTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellEvent];
     }
@@ -112,11 +117,11 @@
         cell.backgroundColor = [UIColor whiteColor];
     }
     
-    
     Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
     
-    cell.btnFavorite.imageView.image = [cell.btnFavorite.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [cell.btnFavorite.imageView setTintColor:[UIColor colorWithRed:33.0/255.0 green:145.0/255.0 blue:114.0/255.0 alpha:1]];
+    cell.btnFavorite.backgroundColor = cell.backgroundColor;
+    cell.btnDownload.backgroundColor = cell.backgroundColor;
+    cell.btnQuestion.backgroundColor = cell.backgroundColor;
     
     cell.titleAndHourlabel.text = [NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title];
     [cell.titleAndHourlabel sizeToFit];
@@ -137,13 +142,13 @@
     
     CGFloat height = [TalkTableViewCell calculateCellHeightWithTitle:[NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title] localAndDuration:[NSString stringWithFormat:@"%@ - %@ às %@", talk.local, talk.startHour, talk.endHour] speakers:[self showSpeakers:talk.speakers] width:[[UIScreen mainScreen] bounds].size.width - 40];
     
-    height += 95;
+    height += 85;
     
     if (!talk.allowFile && !talk.allowQuestion)
-        height -= 20;
+        height -= 24;
     
     if ([talk.speakers count] == 0)
-        height -= 30;
+        height -= 40;
     
     return height;
 }
