@@ -9,7 +9,6 @@
 #import "RememberPasswordViewController.h"
 #import "Validations.h"
 #import "Messages.h"
-#import "Analitcs.h"
 
 @interface RememberPasswordViewController ()
 
@@ -46,13 +45,10 @@
 {
     if (![Validations emailValid:self.emailTextField.text]) {
         [Messages failMessageWithTitle:nil andMessage:@"E-mail inválido"];
-        [Analitcs saveDataAnalitcsWithType:@"Lembrar" screenAccess:@"Relembrar Senha" description:@"O usuário informou um e-mail invalido."];
     } else {
         if (![Validations verifyExistUser:self.emailTextField.text]) {
             [Messages failMessageWithTitle:nil andMessage:@"E-mail não cadastrado."];
-            [Analitcs saveDataAnalitcsWithType:@"Lembrar" screenAccess:@"Relembrar Senha" description:@"O usuário informou um e-mail que não se encontra cadastrado."];
         } else {
-            [Analitcs saveDataAnalitcsWithType:@"Lembrar" screenAccess:@"Relembrar Senha" description:@"O usuário recebeu um e-mail para alterar a sua senha."];
             [PFUser requestPasswordResetForEmail:self.emailTextField.text];
             [Messages failMessageWithTitle:nil andMessage:@"Acesse seu e-mail para redefinir sua senha"];
             [self.navigationController popToRootViewControllerAnimated:YES];

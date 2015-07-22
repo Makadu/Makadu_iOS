@@ -20,6 +20,4 @@
 
 + (CGFloat)calculateCellHeightWithTitle:(NSString *)hourAndTitle localAndDuration:(NSString *)localAndDuration speakers:(NSString *)speakers width:(CGFloat)width;
 
-+ (CGFloat)calculateCellHeightWithTitleLabel:(UILabel *)hourAndTitle localAndDuration:(UILabel *)localAndDuration speakers:(UILabel *)speakers width:(CGFloat)width;
-
 @end

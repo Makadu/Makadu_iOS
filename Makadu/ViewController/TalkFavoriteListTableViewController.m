@@ -11,7 +11,6 @@
 #import "Connection.h"
 #import "Cloud.h"
 #import "Schedule.h"
-#import "Analitcs.h"
 #import "Messages.h"
 
 #import "TalkTableViewCell.h"
@@ -50,7 +49,7 @@
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(getLatestTalks) forControlEvents:UIControlEventValueChanged];
     
-    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação... \n Isso pode demorar até 30 segundos." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Carregando a programação..." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
     
     self.indexPathSelected = nil;
     
@@ -59,12 +58,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
-    if (self.showEventViewController.eventObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Favoritos" description:@"O usuário acessou a lista de favoritos do evento" event:self.showEventViewController.eventObject];
-    } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Favoritos" description:@"O usuário sem acesso a conexão de dados"];
-    }
     
     [self fetchTalks];
     
@@ -196,13 +189,6 @@
         [talkViewController setTalkObject:talkObject];
         [talkViewController setEventObject:self.showEventViewController.eventObject];
         
-        if (talkObject != nil) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Favoritos" description:@"O usuário clicou na palestra" event:self.showEventViewController.eventObject talk:talkObject];
-        } else {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Favoritos" description:@"Usuário sem acesso a conexão de dados."];
-        }
-        
-        
     } else if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
         
         CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -211,12 +197,6 @@
         
         Talk * talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
-        
-        if (talkObject != nil) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Favoritos" description:@"O usuário clicou no botão de perguntar da palestra" event:self.showEventViewController.eventObject talk:talkObject];
-        } else {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Favoritos" description:@"Usuário sem acesso a conexão de dados."];
-        }
         
         [questionViewController setEventObject:self.showEventViewController.eventObject];
         [questionViewController setTalkObject:talkObject];
@@ -363,8 +343,6 @@
 
 - (void)getLatestTalks
 {
-    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Atualizou" screenAccess:@"Lista de Palestras" description:@"O usuário atualizou o lista de palestras do evento." event:self.showEventViewController.eventObject];
-    
     [self fetchTalks];
 }
 

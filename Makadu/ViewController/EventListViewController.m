@@ -11,7 +11,6 @@
 #import "Event.h"
 #import "EventTableViewCell.h"
 #import "ShowEventViewController.h"
-#import "Analitcs.h"
 #import "Connection.h"
 
 @interface EventListViewController ()
@@ -43,11 +42,7 @@
     [super viewWillAppear:animated];
     
     PFUser *currentUser = [PFUser currentUser];
-    if ([currentUser isAuthenticated]) {
-        NSLog(@"Current user: %@", currentUser.username);
-        [Analitcs saveDataAnalitcsWithUser:currentUser typeOperation:@"Acessou" screenAccess:@"Lista de Eventos" description:@"O usuário acessou a lista de eventos."];
-    } else {
-        [Analitcs saveDataAnalitcsWithType:@"Acessou" screenAccess:@"Lista de Eventos" description:@"Usuário não estava logado e foi direcionado para a tela de login."];
+    if (![currentUser isAuthenticated]) {
         [self performSegueWithIdentifier:@"showLogin" sender:self];
     }
     
@@ -76,13 +71,7 @@
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictonary];
         self.refreshControl.attributedTitle = attributedTitle;
         
-        if ([[PFUser currentUser] isAuthenticated]) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Atualizou" screenAccess:@"Lista de Eventos" description:@"O usuário atualizou a lista de eventos."];
-        }
-        
-        
         [self.refreshControl endRefreshing];
-        
     }
 }
 
@@ -166,12 +155,7 @@
             indexPath = [self.tableView indexPathForSelectedRow];
             event = [self.listEvent objectAtIndex:indexPath.row];
         }
-        
-        PFObject * eventObject = [EventDAO fetchEventByEventId:event];
-        if (eventObject != nil) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Eventos" description:@"O usuário acessou um evento" event:eventObject];
-        }
-        
+
         ShowEventViewController * desinateViewController = [segue destinationViewController];
         [desinateViewController setEvent:event];
     }
@@ -194,8 +178,6 @@
     [self.eventsFiltered removeAllObjects];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name contains[c] %@",searchText];
     self.eventsFiltered = [NSMutableArray arrayWithArray:[self.listEvent filteredArrayUsingPredicate:predicate]];
-    
-    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Buscou" screenAccess:@"Lista de Eventos" description:[NSString stringWithFormat:@"O usuário realizou uma busca pela seguinte palavra: %@", searchText]];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -216,7 +198,6 @@
 
 #pragma mark - Logout
 -(IBAction)logout:(id)sender {
-    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Realizou" screenAccess:@"Lista de Eventos" description:@"O usuário efetuou o logoff."];
     [PFUser logOut];
     [self performSegueWithIdentifier:@"showLogin" sender:self];
 }

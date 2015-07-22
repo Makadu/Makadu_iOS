@@ -10,7 +10,6 @@
 #import "Notice.h"
 #import "Event.h"
 #import "NoticeDAO.h"
-#import "Analitcs.h"
 #import "NoticeTableViewCell.h"
 
 @interface NoticeListTableViewController ()
@@ -47,12 +46,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
-    if (self.showEventViewController.eventObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Noticias" description:@"O usuário acessou a lista de Noticias do evento" event:self.showEventViewController.eventObject];
-    } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Noticias" description:@"O usuário sem acesso a internet"];
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,13 +55,6 @@
 #pragma mark - Update notices
 - (void)getLatestNotices
 {
-    
-    if (self.showEventViewController.eventObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Atualizou" screenAccess:@"Lista de Noticias" description:@"O usuário atualizou o lista de Avisos do evento" event:self.showEventViewController.eventObject];
-    } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Atualizou" screenAccess:@"Lista de Noticias" description:@"O usuário sem acesso a internet"];
-    }
-    
     [self fetchNotices];
 }
 

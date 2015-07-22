@@ -12,7 +12,6 @@
 #import "Connection.h"
 #import "Cloud.h"
 #import "Schedule.h"
-#import "Analitcs.h"
 #import "Messages.h"
 #import "Rating.h"
 
@@ -62,13 +61,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
-    
-    if (self.talkObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Detalhes da Palestra" description:@"O usuário acessou os detalhes da palestra" event:self.eventObject talk:[TalkDAO fetchTalkByTalkId:self.talk]];
-    } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Detalhe da Palestras" description:@"Usuário sem acesso a conexão de dados."];
-    }
-    
     
     if ([self.talk isFavorite])
         self.favoriteButton.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
@@ -201,11 +193,8 @@
             [questionViewController setTalk:self.talk];
             [questionViewController setTalkObject:self.talkObject];
             [questionViewController setEventObject:self.eventObject];
-            
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Detalhes da Palestra" description:@"O usuário clicou em perguntar da palestra" event:self.eventObject talk:[TalkDAO fetchTalkByTalkId:self.talk]];
         }
     } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Detalhes da palestra" description:[NSString stringWithFormat:@"O usuário clicou em perguntar da palestra %@, mas ocorreu um erro - usuário sem acesso a internet.", self.talk.title]];
         [Messages failMessageWithTitle:nil andMessage:@"Sem internet no momento, tente novamente mais tarde"];
     }
 }

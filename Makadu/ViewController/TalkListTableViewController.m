@@ -23,7 +23,6 @@
 #import "Connection.h"
 #import "Cloud.h"
 #import "Schedule.h"
-#import "Analitcs.h"
 #import "Messages.h"
 
 @interface TalkListTableViewController ()
@@ -68,13 +67,6 @@
     [super viewDidAppear:YES];
     
     self.isPositionTable = NO;
-    
-    if (self.showEventViewController.eventObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Palestras" description:@"O usuário acessou a lista de palestras do evento" event:self.showEventViewController.eventObject];
-    } else {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Lista de Palestras" description:@"O usuário sem acesso a conexão de dados"];
-    }
-    
     
     [self fetchTalks];
     
@@ -127,6 +119,12 @@
     static NSString * cellEvent = @"listTalkCell";
     TalkTableViewCell *cell = (TalkTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:cellEvent];
     
+    [cell.btnFavorite setImage:[UIImage imageNamed:@"star_empty.png"] forState:UIControlStateNormal];
+    [cell.btnFavorite setImage:[UIImage imageNamed:@"star_selected.png"] forState:UIControlStateSelected];
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    [cell setTintColor:[UIColor blackColor]];
+    
+    
     if(indexPath.row % 2 == 0) {
         cell.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:1];
     } else {
@@ -147,16 +145,16 @@
     cell.speakers.text = [self showSpeakers:talk.speakers];
     [cell.speakers sizeToFit];
     
-    if ([talk isFavorite])
-        cell.btnFavorite.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
-    else
-        cell.btnFavorite.backgroundColor = [UIColor clearColor];
+    cell.btnFavorite.backgroundColor = cell.backgroundColor;
     
     cell.btnFavorite.selected = [talk isFavorite];
     
     cell.btnFavorite.hidden = !talk.allowFavorite;
     cell.btnDownload.hidden = !talk.allowFile;
     cell.btnQuestion.hidden = !talk.allowQuestion;
+    
+    UIView * view = [cell viewWithTag:100];
+    view .hidden = !talk.allowFavorite;
     
     return cell;
 }
@@ -172,13 +170,13 @@
     
     CGFloat height = [TalkTableViewCell calculateCellHeightWithTitle:[NSString stringWithFormat:@"%@ %@", talk.startHour, talk.title] localAndDuration:[NSString stringWithFormat:@"%@ - %@ às %@", talk.local, talk.startHour, talk.endHour] speakers:[self showSpeakers:talk.speakers] width:[[UIScreen mainScreen] bounds].size.width - 40];
     
-    height += 95;
+    height += 85;
 
     if (!talk.allowFile && !talk.allowQuestion)
-        height -= 20;
+        height -= 24;
     
     if ([talk.speakers count] == 0)
-       height -= 30;
+       height -= 40;
     
     return height;
 }
@@ -241,12 +239,6 @@
         [talkViewController setTalkObject:talkObject];
         [talkViewController setEventObject:self.showEventViewController.eventObject];
         
-        if (talkObject != nil) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"O usuário clicou na palestra" event:self.showEventViewController.eventObject talk:talkObject];
-        } else {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"Usuário sem acesso a conexão de dados."];
-        }
-        
     } else if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
         
         CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -264,12 +256,6 @@
     
         PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
-        if (talkObject != nil) {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"O usuário clicou no botão de perguntar da palestra" event:self.showEventViewController.eventObject talk:talkObject];
-        } else {
-            [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"Usuário sem acesso a conexão de dados."];
-        }
-        
         [questionViewController setEventObject:self.showEventViewController.eventObject];
         [questionViewController setTalkObject:talkObject];
         [questionViewController setTalk:talk];
@@ -282,8 +268,6 @@
     [self.talksFiltered removeAllObjects];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title contains[c] %@",searchText];
     self.talksFiltered = [NSMutableArray arrayWithArray:[self.talksNoFiltered filteredArrayUsingPredicate:predicate]];
-    
-    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Buscou" screenAccess:@"Lista de Palestras" description:[NSString stringWithFormat:@"O usuário realizou uma busca pela seguinte palavra: %@", searchText]];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
@@ -401,8 +385,6 @@
         
         Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
         
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Clicou" screenAccess:@"Lista de Palestras" description:@"O usuário clicou no botão de download da palestra" event:self.showEventViewController.eventObject talk:[TalkDAO fetchTalkByTalkId:talk]];
-        
         if(talk.file) {
             NSString * urlFile = talk.file.url;
             [Cloud sendMail:[[PFUser currentUser] email] url:urlFile talkName:talk.title];
@@ -435,20 +417,14 @@
     TalkTableViewCell * cell = (TalkTableViewCell *)[self.tableView cellForRowAtIndexPath:self.indexPathSelected];
     
     Talk *talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
-    
     cell.btnFavorite.selected = ![talk isFavorite];
-    cell.btnFavorite.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
-    cell.btnFavorite.imageView.image = [cell.btnFavorite.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    
-    [talk toggleFavorite:YES];
+    [talk toggleFavorite:![talk isFavorite]];
 }
 
 #pragma mark - Update Talks
 
 - (void)getLatestTalks
 {
-    [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Atualizou" screenAccess:@"Lista de Palestras" description:@"O usuário atualizou o lista de palestras do evento." event:self.showEventViewController.eventObject];
-
     [self fetchTalks];
 }
 

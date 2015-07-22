@@ -28,11 +28,14 @@
     
     [userQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            PFUser *user = [objects lastObject];
+            PFUser *user = [PFUser currentUser];
             NSArray *talks = user[@"favorities_talks"];
             NSMutableArray * listTalk = [NSMutableArray new];
             if (talks != nil && [talks count] > 0) {
                 for (PFObject *object in talks) {
+                    if (object == nil) {
+                        return;
+                    }
                     if ([((PFObject *)object[@"event"]).objectId isEqualToString:event.objectId]) {
                         Talk * talk = [Talk new];
                         talk.talkID = object.objectId;

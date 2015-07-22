@@ -8,7 +8,6 @@
 
 #import "EventViewController.h"
 #import "Event.h"
-#import "Analitcs.h"
 #import "EventDAO.h"
 
 @interface EventViewController ()
@@ -31,10 +30,6 @@
     self.descriptionTextView.text = self.event.eventDescription;
     
     [self loadImageEvent:self.event.fileImgEvent];
-    
-    if (self.showEventViewController.eventObject != nil) {
-        [Analitcs saveDataAnalitcsWithUser:[PFUser currentUser] typeOperation:@"Acessou" screenAccess:@"Detalhes do Evento" description:@"O usuário acessou o detalhe do evento" event:[EventDAO fetchEventByEventId:self.event]];
-    }
 }
 
 - (void)didReceiveMemoryWarning {

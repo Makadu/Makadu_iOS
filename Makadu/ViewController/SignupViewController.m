@@ -9,7 +9,6 @@
 #import "SignupViewController.h"
 #import "Messages.h"
 #import "Validations.h"
-#import "Analitcs.h"
 
 @interface SignupViewController ()
 
@@ -58,11 +57,9 @@
     
     if ([username length] == 0 || [password length] == 0 || [email length] == 0) {
         [Messages failMessageWithTitle:nil andMessage:@"Você deve preencher todos os campos."];
-        [Analitcs saveDataAnalitcsWithType:@"Cadastro" screenAccess:@"Cadastre-se" description:@"O usuário não preencheu algum dos campos necessários"];
     } else {
         if (![Validations emailValid:email]) {
             [Messages failMessageWithTitle:nil andMessage:@"E-mail invávido"];
-            [Analitcs saveDataAnalitcsWithType:@"Cadastro" screenAccess:@"Cadastre-se" description:@"E-mail informado pelo usuário não era válido"];
         } else {
             PFUser *newUser = [PFUser user];
             newUser.username = email;
@@ -73,9 +70,7 @@
             [newUser signUpInBackgroundWithBlock:^(BOOL secceeded, NSError * error) {
                 if (error) {
                     [Messages failMessageWithTitle:nil andMessage:@"O e-mail selecionado já está em uso. Faça seu login."];
-                    [Analitcs saveDataAnalitcsWithUser:newUser typeOperation:@"Cadastro" screenAccess:@"Cadatre-se" description:[NSString stringWithFormat:@"Ocorreu um erro inesperado: %@", error.localizedDescription]];
                 } else {
-                    [Analitcs saveDataAnalitcsWithUser:newUser typeOperation:@"Cadastro" screenAccess:@"Cadatre-se" description:@"O usuario realizou o cadastro com sucesso"];
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }
             }];
