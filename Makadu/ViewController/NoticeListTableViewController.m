@@ -11,6 +11,7 @@
 #import "Event.h"
 #import "NoticeDAO.h"
 #import "NoticeTableViewCell.h"
+#import "Localytics.h"
 
 @interface NoticeListTableViewController ()
 
@@ -46,6 +47,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    
+    [Localytics tagScreen:@"Notices"];
 }
 
 - (void)didReceiveMemoryWarning {

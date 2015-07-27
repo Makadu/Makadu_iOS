@@ -9,6 +9,7 @@
 #import "EventViewController.h"
 #import "Event.h"
 #import "EventDAO.h"
+#import "Localytics.h"
 
 @interface EventViewController ()
 
@@ -30,6 +31,13 @@
     self.descriptionTextView.text = self.event.eventDescription;
     
     [self loadImageEvent:self.event.fileImgEvent];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [Localytics tagScreen:@"Event Detail"];
 }
 
 - (void)didReceiveMemoryWarning {

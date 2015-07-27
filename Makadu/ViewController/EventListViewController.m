@@ -12,6 +12,7 @@
 #import "EventTableViewCell.h"
 #import "ShowEventViewController.h"
 #import "Connection.h"
+#import "Localytics.h"
 
 @interface EventListViewController ()
 
@@ -32,6 +33,13 @@
     self.refreshControl.backgroundColor = [UIColor lightGrayColor];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self action:@selector(getLatestEvents) forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [Localytics tagScreen:@"Event List"];
 }
 
 - (void)didReceiveMemoryWarning {

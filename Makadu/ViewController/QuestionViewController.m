@@ -10,24 +10,29 @@
 #import "Connection.h"
 #import "Messages.h"
 #import "TalkDAO.h"
+#import "Localytics.h"
 
 @interface QuestionViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *questionTextView;
+@property (strong, nonatomic) PFObject * talkObject;
 
 @end
 
 @implementation QuestionViewController
 
 - (void)viewDidLoad {
-    
-    
     [super viewDidLoad];
+    
+    [self fetchTalk];
     
     self.questionTextView.delegate = self;
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    
+    [Localytics tagScreen:@"Question"];
+    
     if (![Connection existConnection]) {
         [self dismissViewControllerAnimated:NO completion:nil];
     }
@@ -55,27 +60,36 @@
     
     [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Enviando mensagem." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
     
-    PFObject *question = [PFObject objectWithClassName:@"Questions"];
-    question[@"question"] = self.questionTextView.text;
-    question[@"talk"] = self.talkObject;
-    question[@"questioning"] = [PFUser currentUser];
-    question[@"active"] = [NSNumber numberWithBool:YES];
-    [question saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [Messages successMessageWithTitle:@"Sucesso" andMessage:@"Sua pergunta foi enviada com com sucesso"];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        } else {
-            [Messages failMessageWithTitle:@"Alerta" andMessage:@"Ocorreu um erro no envio de sua menssagem"];
-            [self dismissViewControllerAnimated:NO completion:nil];
-        }
-    }];
+    if(self.talkObject != nil) {
+        PFObject *question = [PFObject objectWithClassName:@"Questions"];
+        question[@"question"] = self.questionTextView.text;
+        question[@"talk"] = self.talkObject;
+        question[@"questioning"] = [PFUser currentUser];
+        question[@"active"] = [NSNumber numberWithBool:YES];
+        [question saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                [Messages successMessageWithTitle:@"Sucesso" andMessage:@"Sua pergunta foi enviada com com sucesso"];
+                [self dismissViewControllerAnimated:NO completion:nil];
+            } else {
+                [Messages failMessageWithTitle:@"Alerta" andMessage:@"Ocorreu um erro no envio de sua menssagem"];
+                [self dismissViewControllerAnimated:NO completion:nil];
+            }
+        }];
+    }
     [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
-
 }
 
 - (IBAction)tapCancelSendQuestion:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+
+-(void)fetchTalk {
+    [TalkDAO fetchTalkByTalkIdInBackGround:self.talk talks:^(PFObject *talk) {
+        self.talkObject = talk;
+    } failure:^(NSString * error) {
+        NSLog(@"Erro ao carregar a palestra");
+    }];
+}
 
 @end

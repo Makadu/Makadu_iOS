@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "Messages.h"
+#import "Localytics.h"
+
 
 @interface LoginViewController ()
 
@@ -28,6 +30,13 @@
     
     [self.emailTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.passwordTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [Localytics tagScreen:@"Login"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

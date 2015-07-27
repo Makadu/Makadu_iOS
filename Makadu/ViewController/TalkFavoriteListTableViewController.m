@@ -12,6 +12,7 @@
 #import "Cloud.h"
 #import "Schedule.h"
 #import "Messages.h"
+#import "Localytics.h"
 
 #import "TalkTableViewCell.h"
 #import "TalkViewController.h"
@@ -58,6 +59,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    
+    [Localytics tagScreen:@"List Favorities"];
     
     [self fetchTalks];
     
@@ -188,10 +191,10 @@
         
         Talk * talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         
-        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
+//        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
         [talkViewController setTalk:talk];
-        [talkViewController setTalkObject:talkObject];
+//        [talkViewController setTalkObject:talkObject];
         [talkViewController setEventObject:self.showEventViewController.eventObject];
         
     } else if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
@@ -201,10 +204,10 @@
         self.indexPathSelected = [self.tableView indexPathForRowAtPoint:buttonPosition];
         
         Talk * talk = [[self.listTalk objectAtIndex:self.indexPathSelected.section][@"group"] objectAtIndex:self.indexPathSelected.row];
-        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
+//        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
         [questionViewController setEventObject:self.showEventViewController.eventObject];
-        [questionViewController setTalkObject:talkObject];
+//        [questionViewController setTalkObject:talkObject];
         [questionViewController setTalk:talk];
     }
 }

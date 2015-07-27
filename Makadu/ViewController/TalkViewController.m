@@ -14,6 +14,7 @@
 #import "Schedule.h"
 #import "Messages.h"
 #import "Rating.h"
+#import "Localytics.h"
 
 #import "QuestionDAO.h"
 #import "TalkDAO.h"
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) NSArray *listQuestions;
 @property (strong, nonatomic) NSNumber *ratingNote;
 @property (strong, nonatomic) Rating *ratingSelf;
+@property (strong, nonatomic) PFObject * talkObject;
 
 @end
 
@@ -38,25 +40,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self fetchTalk];
+    [self startStarRating];
+    
     self.titleLabel.text = self.talk.title;
     self.localLabel.text = [NSString stringWithFormat:@"%@ - %@ %@", self.talk.local, [DateFormatter formateDateBrazilianWhithDate:self.talk.date withZone:YES], self.talk.startHour];
     
     self.questionButton.hidden = !self.talk.allowQuestion;
     self.downloadButton.hidden = !self.talk.allowFile;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
-    self.ratingSelf = [RatingDAO fetchRatingByUserAndTalk:[PFUser currentUser] talk:self.talkObject];
-    
-    // Setup control using iOS7 tint Color
-    self.starRating.backgroundColor  = [UIColor whiteColor];
-    self.starRating.starImage = [UIImage imageNamed:@"star.png"];
-    self.starRating.starHighlightedImage = [UIImage imageNamed:@"starhighlighted.png"];
-    self.starRating.maxRating = 5.0;
-    self.starRating.delegate = self;
-    self.starRating.horizontalMargin = 12;
-    self.starRating.editable = YES;
-    self.starRating.rating = [self.ratingSelf.note floatValue];
-    self.starRating.displayMode=EDStarRatingDisplayFull;
-    
+    [Localytics tagScreen:@"Talk Detail"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -191,7 +189,7 @@
         if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
             QuestionViewController *questionViewController = [segue destinationViewController];
             [questionViewController setTalk:self.talk];
-            [questionViewController setTalkObject:self.talkObject];
+//            [questionViewController setTalkObject:self.talkObject];
             [questionViewController setEventObject:self.eventObject];
         }
     } else {
@@ -203,12 +201,12 @@
 #pragma mark - fetch
 
 -(void)fetchQuestions {
-    PFObject * talkObject = [TalkDAO fetchTalkByTalkId:self.talk];
-    if (talkObject == nil) {
+//    PFObject * talkObject = [TalkDAO fetchTalkByTalkId:self.talk];
+    if (self.talkObject == nil) {
         self.listQuestions = nil;
         [self.tableView reloadData];
     } else {
-        [QuestionDAO fetchQuestionByTalk:talkObject questions:^(NSArray * objects) {
+        [QuestionDAO fetchQuestionByTalk:self.talkObject questions:^(NSArray * objects) {
             self.listQuestions = objects;
             [self.tableView reloadData];
         } failure:^(NSString * error) {
@@ -275,4 +273,32 @@
         self.starRating.rating = [self.ratingSelf.note floatValue];
     }
 }
+
+-(void)fetchTalk {
+    [TalkDAO fetchTalkByTalkIdInBackGround:self.talk talks:^(PFObject *talk) {
+        self.talkObject = talk;
+        [self startStarRating];
+        [self fetchQuestions];
+        [self.tableView reloadData];
+    } failure:^(NSString * error) {
+        NSLog(@"Erro ao carregar a palestra");
+    }];
+}
+
+-(void)startStarRating {
+    if (self.talkObject != nil) {
+        self.ratingSelf = [RatingDAO fetchRatingByUserAndTalk:[PFUser currentUser] talk:self.talkObject];
+    }
+    // Setup control using iOS7 tint Color
+    self.starRating.backgroundColor  = [UIColor whiteColor];
+    self.starRating.starImage = [UIImage imageNamed:@"star.png"];
+    self.starRating.starHighlightedImage = [UIImage imageNamed:@"starhighlighted.png"];
+    self.starRating.maxRating = 5.0;
+    self.starRating.delegate = self;
+    self.starRating.horizontalMargin = 12;
+    self.starRating.editable = YES;
+    self.starRating.rating = [self.ratingSelf.note floatValue];
+    self.starRating.displayMode=EDStarRatingDisplayFull;
+}
+
 @end

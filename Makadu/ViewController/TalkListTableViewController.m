@@ -19,11 +19,11 @@
 #import "TalkViewController.h"
 #import "QuestionViewController.h"
 
-
 #import "Connection.h"
 #import "Cloud.h"
 #import "Schedule.h"
 #import "Messages.h"
+#import "Localytics.h"
 
 @interface TalkListTableViewController ()
 
@@ -65,6 +65,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    
+    [Localytics tagScreen:@"Talk List"];
     
     self.isPositionTable = NO;
     
@@ -224,6 +226,9 @@
     NSIndexPath *indexPath = nil;
     
     if ([segue.identifier isEqualToString:@"talkSegue"]) {
+        
+        self.talkObject = nil;
+        
         Talk * talk = [Talk new];
         
         if (self.searchDisplayController.active) {
@@ -234,11 +239,11 @@
             talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         }
         
-        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
+//        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
         TalkViewController *talkViewController = [segue destinationViewController];
         [talkViewController setTalk:talk];
-        [talkViewController setTalkObject:talkObject];
+//        [talkViewController setTalkObject:talkObject];
         [talkViewController setEventObject:self.showEventViewController.eventObject];
         
     } else if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
@@ -256,10 +261,10 @@
             talk = [[self.listTalk objectAtIndex:indexPath.section][@"group"] objectAtIndex:indexPath.row];
         }
     
-        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
+//        PFObject * talkObject = [TalkDAO fetchTalkByTalkId:talk];
         
         [questionViewController setEventObject:self.showEventViewController.eventObject];
-        [questionViewController setTalkObject:talkObject];
+//        [questionViewController setTalkObject:talkObject];
         [questionViewController setTalk:talk];
     }
 }

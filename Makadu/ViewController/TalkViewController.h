@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) Talk *talk;
 @property (nonatomic, strong) PFObject *eventObject;
-@property (nonatomic, strong) PFObject *talkObject;
+//@property (nonatomic, strong) PFObject *talkObject;
 
 @property (weak, nonatomic) IBOutlet EDStarRating *starRating;
 

@@ -9,6 +9,7 @@
 #import "RememberPasswordViewController.h"
 #import "Validations.h"
 #import "Messages.h"
+#import "Localytics.h"
 
 @interface RememberPasswordViewController ()
 
@@ -22,6 +23,13 @@
     self.emailTextField.delegate = self;
     self.emailTextField.returnKeyType = UIReturnKeyDefault;
     [self.emailTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [Localytics tagScreen:@"Remember Password"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

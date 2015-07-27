@@ -15,7 +15,7 @@
 @interface QuestionViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) Talk *talk;
-@property (nonatomic, strong) PFObject *talkObject;
+//@property (nonatomic, strong) PFObject *talkObject;
 @property (nonatomic, strong) PFObject *eventObject;
 
 @end

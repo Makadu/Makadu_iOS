@@ -9,6 +9,7 @@
 #import "SignupViewController.h"
 #import "Messages.h"
 #import "Validations.h"
+#import "Localytics.h"
 
 @interface SignupViewController ()
 
@@ -35,6 +36,13 @@
     [self.usernameTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.emailTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self.passwordTextField addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventEditingDidEndOnExit];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [Localytics tagScreen:@"Signup"];
 }
 
 - (void)didReceiveMemoryWarning {
