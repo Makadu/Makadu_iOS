@@ -14,5 +14,6 @@
 +(void)failMessageWithTitle:(NSString *)title andMessage:(NSString *)message;
 +(void)successMessageWithTitle:(NSString *)title andMessage:(NSString *)message;
 +(void)simpleMessageWithTitle:(NSString *)title andMessage:(NSString *)message;
++(void)warningMessageWithTitle:(NSString *)title andMessage:(NSString *)message;
 
 @end

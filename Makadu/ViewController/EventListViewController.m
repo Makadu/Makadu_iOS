@@ -51,7 +51,7 @@
     
     PFUser *currentUser = [PFUser currentUser];
     if (![currentUser isAuthenticated]) {
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
+        [self performSegueWithIdentifier:@"showSignup" sender:self];
     }
     
     [self fetchAllEvents];
@@ -207,7 +207,7 @@
 #pragma mark - Logout
 -(IBAction)logout:(id)sender {
     [PFUser logOut];
-    [self performSegueWithIdentifier:@"showLogin" sender:self];
+    [self performSegueWithIdentifier:@"showSignup" sender:self];
 }
 
 #pragma mark - Other Methods

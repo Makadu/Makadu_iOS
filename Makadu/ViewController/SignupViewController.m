@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBarHidden = YES;
     
     self.navigationController.navigationBar.topItem.title = @"Cadastro";
     
@@ -43,6 +43,10 @@
     [super viewDidAppear:animated];
     
     [Localytics tagScreen:@"Signup"];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,6 +83,7 @@
                 if (error) {
                     [Messages failMessageWithTitle:nil andMessage:@"O e-mail selecionado já está em uso. Faça seu login."];
                 } else {
+                    self.navigationController.navigationBarHidden = NO;
                     [self.navigationController popToRootViewControllerAnimated:YES];
                 }
             }];

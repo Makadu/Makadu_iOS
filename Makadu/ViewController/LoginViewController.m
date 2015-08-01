@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = NO;
     
     self.emailTextField.delegate = self;
     self.emailTextField.returnKeyType = UIReturnKeyDefault;
@@ -37,10 +37,6 @@
     [super viewDidAppear:animated];
     
     [Localytics tagScreen:@"Login"];
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)hideKeyboard {

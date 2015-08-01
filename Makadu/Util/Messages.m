@@ -24,11 +24,20 @@
                                     type:TSMessageNotificationTypeSuccess];
 }
 
++(void)warningMessageWithTitle:(NSString *)title andMessage:(NSString *)message {
+    
+    [TSMessage showNotificationWithTitle:title
+                                subtitle:message
+                                    type:TSMessageNotificationTypeWarning];
+}
+
 +(void)simpleMessageWithTitle:(NSString *)title andMessage:(NSString *)message {
     
     [TSMessage showNotificationWithTitle:title
                                 subtitle:message
                                     type:TSMessageNotificationTypeSuccess];
 }
+
+
 
 @end

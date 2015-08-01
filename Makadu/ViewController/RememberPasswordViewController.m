@@ -58,7 +58,7 @@
             [Messages failMessageWithTitle:nil andMessage:@"E-mail não cadastrado."];
         } else {
             [PFUser requestPasswordResetForEmail:self.emailTextField.text];
-            [Messages failMessageWithTitle:nil andMessage:@"Acesse seu e-mail para redefinir sua senha"];
+            [Messages warningMessageWithTitle:nil andMessage:@"Acesse seu e-mail para redefinir sua senha"];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
     }
