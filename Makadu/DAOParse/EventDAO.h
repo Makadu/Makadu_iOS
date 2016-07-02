@@ -7,14 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
 #import "Event.h"
+#import "AppHelper.h"
+#import <sqlite3.h>
 
 @interface EventDAO : NSObject
 
 @property(nonatomic, strong) NSArray * listEvents;
 
-+(void)fetchAllEvents:(void(^)(NSArray* events))success failure:(void(^)(NSString *errorMessage))failure;
++(void)createOrUpdate:(NSArray *)events operation:(NSString *)operation;
++(void)saveImageLogo:(NSData *)data eventId:(NSString *)eventId;
++(void)saveImageLogoMedium:(NSData *)data eventId:(NSString *)eventId;
++(BOOL)existRegisterInDatabase:(Event *)event;
 
-+(PFObject *)fetchEventByEventId:(Event *)event;
++(NSArray *)retrieveAll;
++(NSArray *)retrieveAll:(NSString *)whereCondicional;
+
 @end

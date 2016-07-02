@@ -1,0 +1,162 @@
+
+/* Class = "UILabel"; text = "questioning and hour"; ObjectID = "0G4-im-PTl"; */
+"0G4-im-PTl.text" = "questioning and hour";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0mp-sK-bzy"; */
+"0mp-sK-bzy.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Cadastre-se"; ObjectID = "2em-cv-7lG"; */
+"2em-cv-7lG.normalTitle" = "Iscriviti";
+
+/* Class = "UISearchBar"; placeholder = "Pesquisar"; ObjectID = "2mX-e6-XP6"; */
+"2mX-e6-XP6.placeholder" = "Cerca";
+
+/* Class = "UITextField"; placeholder = "E-mail: makadu@makadu.com"; ObjectID = "6hI-iu-nhH"; */
+"6hI-iu-nhH.placeholder" = "E-mail: makadu@makadu.com";
+
+/* Class = "UIButton"; normalTitle = "Enviar"; ObjectID = "87Y-JB-jWz"; */
+"87Y-JB-jWz.normalTitle" = "Inviare";
+
+/* Class = "UIButton"; normalTitle = "Esqueci minha senha"; ObjectID = "AXC-nq-uS5"; */
+"AXC-nq-uS5.normalTitle" = "Recupera la password";
+
+/* Class = "UIButton"; normalTitle = "Cancelar"; ObjectID = "AlT-9Y-Nqf"; */
+"AlT-9Y-Nqf.normalTitle" = "Cancellare";
+
+/* Class = "UITabBarItem"; title = "Avisos"; ObjectID = "BuW-mm-7IQ"; */
+"BuW-mm-7IQ.title" = "Annunci";
+
+/* Class = "UIButton"; normalTitle = "Enviar"; ObjectID = "Ci8-Z8-3vj"; */
+"Ci8-Z8-3vj.normalTitle" = "Inviare";
+
+/* Class = "UITextField"; placeholder = "Nome"; ObjectID = "E99-p1-Jkw"; */
+"E99-p1-Jkw.placeholder" = "Nome";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Fq4-UW-VQL"; */
+"Fq4-UW-VQL.text" = "Label";
+
+/* Class = "UILabel"; text = "Faça sua pergunta!"; ObjectID = "HB0-hi-PJ8"; */
+"HB0-hi-PJ8.text" = "Fai la tua domanda!";
+
+/* Class = "UILabel"; text = "local"; ObjectID = "JXw-Ch-d2v"; */
+"JXw-Ch-d2v.text" = "local";
+
+/* Class = "UITextField"; placeholder = "Senha"; ObjectID = "Jlf-7l-F9l"; */
+"Jlf-7l-F9l.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LXY-Kw-cMR"; */
+"LXY-Kw-cMR.text" = "Label";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "LfK-nc-Ad8"; */
+"LfK-nc-Ad8.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "Hora e Titulo"; ObjectID = "MtB-si-7R6"; */
+"MtB-si-7R6.text" = "Hora e Titulo";
+
+/* Class = "UITabBarItem"; title = "Evento"; ObjectID = "Nfc-ul-HGm"; */
+"Nfc-ul-HGm.title" = "Evento";
+
+/* Class = "UIBarButtonItem"; title = "Sair"; ObjectID = "Q3t-7V-t4H"; */
+"Q3t-7V-t4H.title" = "Esci";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "QMn-X5-eLi"; */
+"QMn-X5-eLi.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Qgd-Pl-rbq"; */
+"Qgd-Pl-rbq.text" = "Label";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "R8p-ID-8jp"; */
+"R8p-ID-8jp.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "RZk-XC-FRT"; */
+"RZk-XC-FRT.normalTitle" = "Accedi";
+
+/* Class = "UIBarButtonItem"; title = "Eventos"; ObjectID = "Rzz-dm-oM3"; */
+"Rzz-dm-oM3.title" = "Eventi";
+
+/* Class = "UIButton"; normalTitle = "Perguntas"; ObjectID = "SLs-Hb-FZT"; */
+"SLs-Hb-FZT.normalTitle" = "Domande";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "SUF-cQ-p3x"; */
+"SUF-cQ-p3x.title" = "Accedi";
+
+/* Class = "UINavigationItem"; title = "Eventos"; ObjectID = "Vyg-2r-2WI"; */
+"Vyg-2r-2WI.title" = "Eventi";
+
+/* Class = "UITextField"; placeholder = "E-mail"; ObjectID = "Wf6-SS-lhw"; */
+"Wf6-SS-lhw.placeholder" = "E-mail";
+
+/* Class = "UIButton"; normalTitle = "Criar Conta"; ObjectID = "Yop-4E-Fbe"; */
+"Yop-4E-Fbe.normalTitle" = "Crea account";
+
+/* Class = "UIButton"; normalTitle = "Acessar"; ObjectID = "YzM-lC-dSF"; */
+"YzM-lC-dSF.normalTitle" = "Accedi";
+
+/* Class = "UIButton"; normalTitle = "  Perguntar"; ObjectID = "c0b-qm-hqT"; */
+"c0b-qm-hqT.normalTitle" = "  Chiedere";
+
+/* Class = "UILabel"; text = "local"; ObjectID = "cbH-iQ-q5w"; */
+"cbH-iQ-q5w.text" = "local";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "crW-Dp-bie"; */
+"crW-Dp-bie.text" = "Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "fMB-qV-kuI"; */
+"fMB-qV-kuI.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Programação"; ObjectID = "ffo-My-kQ7"; */
+"ffo-My-kQ7.title" = "Programmazione";
+
+/* Class = "UISearchBar"; placeholder = "Pesquisar"; ObjectID = "fzL-Tt-FSq"; */
+"fzL-Tt-FSq.placeholder" = "Ricerca";
+
+/* Class = "UITextField"; placeholder = "Senha"; ObjectID = "gPM-E4-gXQ"; */
+"gPM-E4-gXQ.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "  Baixar"; ObjectID = "gxW-Bv-zhS"; */
+"gxW-Bv-zhS.normalTitle" = "  Scaricare";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "i5c-a8-d64"; */
+"i5c-a8-d64.text" = "Label";
+
+/* Class = "UILabel"; text = "Hora e Titulo"; ObjectID = "iR1-Kz-4Z6"; */
+"iR1-Kz-4Z6.text" = "Hora e Titulo";
+
+/* Class = "UILabel"; text = "speakers"; ObjectID = "kKQ-td-TxN"; */
+"kKQ-td-TxN.text" = "speakers";
+
+/* Class = "UINavigationItem"; title = "Cadastro"; ObjectID = "mEp-9y-heq"; */
+"mEp-9y-heq.title" = "Catasto";
+
+/* Class = "UILabel"; text = "data"; ObjectID = "n2d-9N-tNO"; */
+"n2d-9N-tNO.text" = "data";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "nTg-b4-GS0"; */
+"nTg-b4-GS0.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UITextField"; placeholder = "E-mail: makadu@makadu.com"; ObjectID = "qZV-hx-KZD"; */
+"qZV-hx-KZD.placeholder" = "E-mail: makadu@makadu.com";
+
+/* Class = "UILabel"; text = "Informe seu e-mail:"; ObjectID = "sN4-da-VQQ"; */
+"sN4-da-VQQ.text" = "Inserisci la tua e-mail:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "tUz-bE-tZb"; */
+"tUz-bE-tZb.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Download"; ObjectID = "uI8-Yr-8Ye"; */
+"uI8-Yr-8Ye.normalTitle" = "Scarica";
+
+/* Class = "UILabel"; text = "speakers"; ObjectID = "uTF-M8-YyP"; */
+"uTF-M8-YyP.text" = "speakers";
+
+/* Class = "UIButton"; normalTitle = "  Perguntar"; ObjectID = "uWY-r5-50b"; */
+"uWY-r5-50b.normalTitle" = "  Chiedere";
+
+/* Class = "UILabel"; text = "local"; ObjectID = "ue1-Ls-n4I"; */
+"ue1-Ls-n4I.text" = "local";
+
+/* Class = "UIButton"; normalTitle = "  Baixar"; ObjectID = "xJa-TJ-9Wn"; */
+"xJa-TJ-9Wn.normalTitle" = "  Scarica";
+
+/* Class = "UITabBarItem"; title = "Favoritos"; ObjectID = "xyz-7a-L4v"; */
+"xyz-7a-L4v.title" = "Preferiti";

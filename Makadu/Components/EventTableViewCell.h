@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ParseUI/ParseUI.h>
 
 @interface EventTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *namelabel;
 @property (nonatomic, weak) IBOutlet UILabel *cityLabel;
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
-@property (nonatomic, weak) IBOutlet PFImageView *patronageImage;
+@property (nonatomic, weak) IBOutlet UIImageView *patronageImage;
 
 
 + (CGFloat)calculateHeightText:(NSString *)text font:(UIFont *)font width:(CGFloat)width;

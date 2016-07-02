@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ParseUI/ParseUI.h>
-#import <Parse/Parse.h>
+#import <MRProgress/MRProgress.h>
 #import "ShowEventViewController.h"
 
 @interface EventViewController : UIViewController
@@ -16,8 +15,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *localLabel;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
-@property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (strong, nonatomic) IBOutlet PFImageView *logoPFImageView;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
 
 

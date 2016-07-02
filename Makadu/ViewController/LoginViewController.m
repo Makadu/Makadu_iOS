@@ -9,16 +9,21 @@
 #import "LoginViewController.h"
 #import "Messages.h"
 #import "Localytics.h"
-
+#import "User.h"
+#import "DeviceService.h"
 
 @interface LoginViewController ()
 
+@property(nonatomic, weak) IBOutlet UIButton *btnAccess;
+@property(nonatomic, weak) IBOutlet UIButton *btnRecoveryPassword;
+@property(nonatomic, weak) IBOutlet UIButton *btnRegister; 
 @end
 
 @implementation LoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     self.navigationController.navigationBarHidden = NO;
     
@@ -37,6 +42,7 @@
     [super viewDidAppear:animated];
     
     [Localytics tagScreen:@"Login"];
+
 }
 
 - (void)hideKeyboard {
@@ -55,16 +61,39 @@
     NSString * password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if ([username length] == 0 || [password length] == 0) {
-        [Messages failMessageWithTitle:nil andMessage:@"Você deve informar o usuário e a senha"];
+        [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"user_and_password", nil)];
     } else {
-        [PFUser logInWithUsernameInBackground:self.emailTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError * error) {
-            if (error) {
-                NSLog(@"Erro %@ - %@", error.localizedDescription, error.userInfo);
-                [Messages failMessageWithTitle:nil andMessage:@"Usuário ou senha inválido."];
-            } else {
+        [User authUser:username password:password withCompletitionBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if ([[responseObject objectForKey:@"data"] boolValue]) {
+                User *user = [User new];
+                user.ID = [responseObject objectForKey:@"user_id"];
+                user.fullName = @"";
+                user.userName = username;
+                user.email = username;
+                user.password = password;
+                
+                [user save];
+                
+                NSLog(@"%@", [DeviceService loadDeviceToken]);
+                
+                [DeviceService sentDeviceToken:[DeviceService loadDeviceToken] withCompletitionBlock: ^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSLog(@"Registro realizado com sucesso");
+                } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"Error: %ld - %@", (long)error.code, error.localizedDescription);
+                }];
+                
+                
+                [Localytics tagEvent:@"Login Success" attributes:@{@"Login" : username }];
+                
                 self.navigationController.navigationBarHidden = NO;
                 [self.navigationController popToRootViewControllerAnimated:YES];
+            } else {
+                [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"user_or_password_invalid", nil)];
             }
+        } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [Localytics tagEvent:@"Login Fail" attributes:@{@"Login" : username, @"Error:" : [NSString stringWithFormat:@"%ld - %@", (long)error.code, error.localizedDescription]}];
+            
+            [Messages failMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"%ld - %@", (long)error.code, error.localizedDescription]];
         }];
     }
 }

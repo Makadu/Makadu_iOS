@@ -10,8 +10,9 @@
 
 @interface DateFormatter : NSObject
 
-+(NSString *)formateDateBrazilian:(NSString *)date withZone:(BOOL)zone;
-+(NSString *)formateDateBrazilianWhithDate:(NSDate *)date withZone:(BOOL)zone;
-+(NSString *)formateDateBrazilianDateByTimeZone:(NSDate *)date;
++(NSString *)formateUniversalDate:(NSString *)date withZone:(BOOL)zone;
++(NSString *)formateDateBrazilianWithDiferentFormat:(NSString *)date;
++(NSString *)formateHourBrazilian:(NSString *)date;
 
++(NSString *)currentDate:(NSString *) date;
 @end

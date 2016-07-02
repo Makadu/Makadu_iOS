@@ -11,11 +11,11 @@
 #import "Messages.h"
 #import "TalkDAO.h"
 #import "Localytics.h"
+#import "User.h"
 
 @interface QuestionViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *questionTextView;
-@property (strong, nonatomic) PFObject * talkObject;
 
 @end
 
@@ -25,7 +25,6 @@
     [super viewDidLoad];
     
     [self fetchTalk];
-    
     self.questionTextView.delegate = self;
 }
 
@@ -58,25 +57,30 @@
 
 - (IBAction)tapSendQuestion:(id)sender {
     
-    [MRProgressOverlayView showOverlayAddedTo:self.view title:@"Enviando mensagem." mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:NSLocalizedString(@"sending_message", nil) mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
     
-    if(self.talkObject != nil) {
-        PFObject *question = [PFObject objectWithClassName:@"Questions"];
-        question[@"question"] = self.questionTextView.text;
-        question[@"talk"] = self.talkObject;
-        question[@"questioning"] = [PFUser currentUser];
-        question[@"active"] = [NSNumber numberWithBool:YES];
-        [question saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                [Messages successMessageWithTitle:@"Sucesso" andMessage:@"Sua pergunta foi enviada com com sucesso"];
-                [self dismissViewControllerAnimated:NO completion:nil];
-            } else {
-                [Messages failMessageWithTitle:@"Alerta" andMessage:@"Ocorreu um erro no envio de sua menssagem"];
-                [self dismissViewControllerAnimated:NO completion:nil];
-            }
-        }];
-    }
-    [MRProgressOverlayView dismissOverlayForView:self.view animated:YES];
+    User *user = [User currentUser];
+    
+    [Question sentQuestionByEventId:self.talk.eventId talkId:self.talk.ID username:user.userName question:self.questionTextView.text withCompletitionBlock:^(AFHTTPRequestOperation * operation, id responseObject) {
+        
+        [Localytics tagEvent:@"Question Success" attributes:@{@"Username" : user.userName, @"Event:" : self.event.title, @"Question" : self.questionTextView.text }];
+        
+        [Messages successMessageWithTitle:@"Sucesso" andMessage:NSLocalizedString(@"success_question", nil) ];
+        [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
+        
+        
+        
+    } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [Localytics tagEvent:@"Question Fail" attributes:@{@"Username" : user.userName, @"Event:" : self.event.title, @"Question" : self.questionTextView.text, @"Error" : error.localizedDescription }];
+        
+        [Messages failMessageWithTitle:@"Alerta" andMessage:NSLocalizedString(@"error_sending_message", nil)];
+        [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+        [self dismissViewControllerAnimated:NO completion:nil];
+        
+    }];
 }
 
 - (IBAction)tapCancelSendQuestion:(id)sender {
@@ -85,11 +89,7 @@
 
 
 -(void)fetchTalk {
-    [TalkDAO fetchTalkByTalkIdInBackGround:self.talk talks:^(PFObject *talk) {
-        self.talkObject = talk;
-    } failure:^(NSString * error) {
-        NSLog(@"Erro ao carregar a palestra");
-    }];
+
 }
 
 @end

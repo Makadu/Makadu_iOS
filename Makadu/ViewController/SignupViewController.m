@@ -8,10 +8,15 @@
 
 #import "SignupViewController.h"
 #import "Messages.h"
+#import "Connection.h"
 #import "Validations.h"
 #import "Localytics.h"
+#import "User.h"
 
 @interface SignupViewController ()
+
+@property(nonatomic, weak) IBOutlet UIButton *btnLogin;
+@property(nonatomic, weak) IBOutlet UIButton *btnRegister;
 
 @end
 
@@ -22,7 +27,7 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    self.navigationController.navigationBar.topItem.title = @"Cadastro";
+    self.navigationController.navigationBar.topItem.title = NSLocalizedString(@"register", nil);
     
     self.usernameTextField.delegate = self;
     self.usernameTextField.returnKeyType = UIReturnKeyDefault;
@@ -63,29 +68,81 @@
 
 -(void)signup:(id)sender
 {
-    NSString *username = [self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSString *email    = [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    if ([username length] == 0 || [password length] == 0 || [email length] == 0) {
-        [Messages failMessageWithTitle:nil andMessage:@"Você deve preencher todos os campos."];
-    } else {
-        if (![Validations emailValid:email]) {
-            [Messages failMessageWithTitle:nil andMessage:@"E-mail invávido"];
-        } else {
-            PFUser *newUser = [PFUser user];
-            newUser.username = email;
-            newUser.email = email;
-            newUser.password = password;
-            newUser[@"full_name"] = username;
+    if ([Connection existConnection]) {
+        NSString *username = [self.usernameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *password = [self.passwordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *email    = [self.emailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-            [newUser signUpInBackgroundWithBlock:^(BOOL secceeded, NSError * error) {
-                if (error) {
-                    [Messages failMessageWithTitle:nil andMessage:@"O e-mail selecionado já está em uso. Faça seu login."];
-                } else {
-                    self.navigationController.navigationBarHidden = NO;
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                }
+        if ([username length] == 0 || [password length] == 0 || [email length] == 0) {
+            [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"fields_empty", nil) ];
+            [Localytics tagEvent:@"Signup Fail" attributes:@{@"Username" : username, @"Error:" : NSLocalizedString(@"fields_empty", nil) }];
+        } else {
+            if (![Validations emailValid:email]) {
+                [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"invalid_email", nil)];
+                
+                [Localytics tagEvent:@"Signup Fail" attributes:@{@"Username" : username, @"Error:" : NSLocalizedString(@"invalid_email", nil) }];
+                
+            } else {
+                [User createNewUserWithFullName:username userName:email email:email password:password withCompletitionBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    if([responseObject objectForKey:@"erro"]) {
+                        
+                        [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"user_alredy_exists", nil)];
+                        
+                        
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                        message:[NSString stringWithFormat:NSLocalizedString(@"user_alredy_exists", nil)]
+                                                                       delegate:self
+                                                              cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                                              otherButtonTitles:NSLocalizedString(@"submit", nil), nil];
+                        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                        [alert show];
+                        
+                        
+                    } else {
+                        User *user = [User new];
+                        user.ID = [responseObject objectForKey:@"user_id"];
+                        user.fullName = username;
+                        user.userName = email;
+                        user.email = email;
+                        user.password = password;
+                        
+                        [user save];
+                        
+                        [Localytics tagEvent:@"Signup Success" attributes:@{@"Username" : email }];
+                        
+                        self.navigationController.navigationBarHidden = NO;
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                    
+                } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"Error: %@", error.localizedDescription);
+                    
+                    [Localytics tagEvent:@"Signup Fail" attributes:@{@"Username" : username, @"Error:" : error.localizedDescription }];
+                    
+                    [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"email_in_use", nil)];
+                }];
+            }
+        }
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == 1) {
+        if (![Validations emailValid:[alertView textFieldAtIndex:0].text]) {
+            [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"invalid_email", nil)];
+            
+            [Localytics tagEvent:@"Remember Password Fail" attributes:@{@"Username" :[alertView textFieldAtIndex:0].text, @"Error:" : NSLocalizedString(@"invalid_email", nil) }];
+            
+        } else {
+            [User recoveryPassword:self.emailTextField.text withCompletitionBlock:^(AFHTTPRequestOperation * operation, id responseObject){
+                [Messages warningMessageWithTitle:nil andMessage:NSLocalizedString(@"rescue_password", nil)];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+                
+                [Localytics tagEvent:@"Remember Password Fail" attributes:@{@"Username" :[alertView textFieldAtIndex:0].text, @"Error:" : error.localizedDescription }];
+                
+                [Messages failMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"%ld - %@", (long)error.code, error.localizedDescription]];
             }];
         }
     }

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import "ShowEventViewController.h"
 
 @interface NoticeListTableViewController : UITableViewController
 
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
+@property (nonatomic, strong) Event *event;
+
 
 @end

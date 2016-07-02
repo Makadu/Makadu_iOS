@@ -10,8 +10,12 @@
 #import "Validations.h"
 #import "Messages.h"
 #import "Localytics.h"
+#import "User.h"
 
 @interface RememberPasswordViewController ()
+
+@property(nonatomic, weak) IBOutlet UIButton *btnSent;
+@property(nonatomic, weak) IBOutlet UILabel *lblTitle;
 
 @end
 
@@ -52,15 +56,22 @@
 -(IBAction)sendEmailToRememberPassword:(id)sender
 {
     if (![Validations emailValid:self.emailTextField.text]) {
-        [Messages failMessageWithTitle:nil andMessage:@"E-mail inválido"];
+        [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"invalid_email", nil)];
+        
+        [Localytics tagEvent:@"Remember Password Fail" attributes:@{@"Username" : self.emailTextField.text, @"Error:" : NSLocalizedString(@"invalid_email", nil) }];
+        
     } else {
-        if (![Validations verifyExistUser:self.emailTextField.text]) {
-            [Messages failMessageWithTitle:nil andMessage:@"E-mail não cadastrado."];
-        } else {
-            [PFUser requestPasswordResetForEmail:self.emailTextField.text];
-            [Messages warningMessageWithTitle:nil andMessage:@"Acesse seu e-mail para redefinir sua senha"];
+        [User recoveryPassword:self.emailTextField.text withCompletitionBlock:^(AFHTTPRequestOperation * operation, id responseObject){
+            
+            [Messages warningMessageWithTitle:nil andMessage:NSLocalizedString(@"rescue_password", nil)];
             [self.navigationController popToRootViewControllerAnimated:YES];
-        }
+            
+        } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+            
+            [Localytics tagEvent:@"Remember Password Fail" attributes:@{@"Username" : self.emailTextField.text, @"Error:" : error.localizedDescription }];
+            
+            [Messages failMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"%ld - %@", (long)error.code, error.localizedDescription]];
+        }];
     }
 }
 @end

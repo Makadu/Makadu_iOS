@@ -17,7 +17,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *btnDownload;
 @property (nonatomic, weak) IBOutlet UIButton *btnQuestion;
 @property (nonatomic, weak) IBOutlet UIButton *btnFavorite;
-
-+ (CGFloat)calculateCellHeightWithTitle:(NSString *)hourAndTitle localAndDuration:(NSString *)localAndDuration speakers:(NSString *)speakers width:(CGFloat)width;
+@property (nonatomic, weak) IBOutlet UIButton *btnInteractive;
 
 @end

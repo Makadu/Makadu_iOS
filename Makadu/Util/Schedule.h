@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
 #import "Talk.h"
 
 @interface Schedule : NSObject
 
-+(void)saveDataScheduleWithUser:(PFUser *)user talk:(Talk *)talk;
+//+(void)saveDataScheduleWithUser:(PFUser *)user talk:(Talk *)talk;
 
 @end

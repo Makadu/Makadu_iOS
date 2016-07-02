@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
-#import "Talk.h"
+#import <sqlite3.h>
+
+#import "Question.h"
 
 @interface QuestionDAO : NSObject
 
-+(void)fetchQuestionByTalk:(PFObject *)talk questions:(void(^)(NSArray* questions))success failure:(void(^)(NSString *errorMessage))failure;
++(void)createOrUpdate:(NSArray *)speakers operation:(NSString *)operation;
++(BOOL)existRegisterInDatabase:(Question *)speaker;
+
++(NSArray *)retrieveAll;
++(NSArray *)retrieveAll:(NSString *)whereCondicional;
 
 @end

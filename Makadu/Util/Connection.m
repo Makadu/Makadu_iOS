@@ -12,13 +12,29 @@
 
 +(BOOL)existConnection {
     
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-    if (networkStatus == NotReachable) {
-        return NO;
-    } else {
-        return YES;
+    Reachability *internet = [Reachability reachabilityWithHostName: @"www.google.com"];
+    NetworkStatus netStatus = [internet currentReachabilityStatus];
+    bool netConnection = false;
+    switch (netStatus)
+    {
+        case NotReachable:
+        {
+            NSLog(@"Access Not Available");
+            netConnection = false;
+            break;
+        }
+        case ReachableViaWWAN:
+        {
+            netConnection = true;
+            break;
+        }
+        case ReachableViaWiFi:
+        {
+            netConnection = true;
+            break;
+        }
     }
+    return netConnection;
 }
 
 @end

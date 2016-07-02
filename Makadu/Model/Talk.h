@@ -7,27 +7,51 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
+#import "AFHTTPSessionManager.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface Talk : NSObject
 
-@property(nonatomic, strong) NSString *talkID;
+@property(nonatomic, strong) NSString *ID;
+@property(nonatomic, strong) NSString *eventId;
 @property(nonatomic, strong) NSString *title;
 @property(nonatomic, strong) NSString *talkDescription;
-@property(nonatomic, strong) NSString *startHour;
-@property(nonatomic, strong) NSString *endHour;
-@property(nonatomic, strong) NSString *local;
-@property(nonatomic, strong) NSString *url;
-@property(nonatomic, strong) NSArray *speakers;
-@property(nonatomic, strong) NSArray *questions;
-@property(nonatomic, strong) NSDate *date;
-@property(nonatomic, strong) PFFile *photo;
-@property(nonatomic, strong) PFFile *file;
+@property(nonatomic, strong) NSString *room;
+@property(nonatomic, strong) NSString *speakers;
+@property(nonatomic, strong) NSString *startTime;
+@property(nonatomic, strong) NSString *endTime;
+@property(nonatomic, strong) NSString *updatedAt;
 
-@property BOOL allowFile;
-@property BOOL allowQuestion;
-@property BOOL allowFavorite;
+@property(nonatomic) BOOL questions;
+@property(nonatomic) BOOL downloads;
+@property(nonatomic) BOOL favorite;
+@property(nonatomic) BOOL interactive;
 
-- (void)toggleFavorite:(BOOL)isFavorite;
-- (BOOL)isFavorite;
+- (instancetype)initWithAttributesAndEventId:(NSDictionary *)attributes eventId:(NSString *)eventId;
+
+#pragma mark - WebService Talks
++(NSURLSessionDataTask *)getTalksByEvent:(NSString *)eventId block:(void (^)(NSArray *events, NSError *error))block;
++(NSURLSessionDataTask *)getTalkWithEventId:(NSString *)eventId talkId:(NSString *)talkId block:(void (^)(NSArray *talks, NSError *error))block;
+
+#pragma mark - WebService Download Material
++ (void)downloadMaterial:(NSString *)userName eventId:(NSString *)eventId talkId:(NSString *)talkId
+   withCompletitionBlock:(void(^)(AFHTTPRequestOperation *operation,id responseObject)) success
+            andFailBlock:(void(^)(AFHTTPRequestOperation *operation,NSError *error))failure;
+
+#pragma mark - Database
++(NSArray *)retrieveTalkByEvent:(NSString *)eventId;
++(BOOL)existDataInDataBase:(NSString *)eventId talkId:(Talk *)talk;
+
+#pragma mark - Favorities
+-(NSArray *)loadFavoritiesTalks:(NSString *)eventID;
+-(void)toggleFavorite:(BOOL)isFavorite;
+-(BOOL)isFavorite;
+
+
+- (id)objectForKeyedSubscript:(id)key;
+- (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key;
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+- (void)setObject:(id)obj atIndexedSubscript:(NSUInteger)idx;
+
+
 @end

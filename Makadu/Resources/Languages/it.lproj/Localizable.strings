@@ -1,0 +1,95 @@
+/* 
+  Localizable.strings
+  Makadu
+
+  Created by Marcio Habigzang Brufatto on 11/8/15.
+  Copyright © 2015 Madhava. All rights reserved.
+*/
+
+"app_name"           = "Makadu";
+"app_aviso"          = "Avvertenze";
+"action_perfil"      = "Profilo";
+"action_settings"    = "Impostazioni";
+"event"              = "Eventos";
+"schedule"           = "Programmazione";
+"talk"               = "Discorsi";
+"detail_event"       = "Dettagli dell'evento";
+"details"            = "Dettagli";
+"search"             = "Cerca...";
+"notification"       = "Notifica";
+"detail_talk"        = "Dettagli della Programmazione";
+"success_download"   = "Il materiale della conferenza è stato inviato al tuo indirizzo e-mail con successo!";
+"success_question"   = "La tua domanda è stata inviata con successo!";
+"rating"             = "Valutazione effettuata con successo!";
+"notifications"      = "Notifiche";
+"sponsor"            = "Sponsor";
+"favorities"         = "Preferiti";
+"login"              = "Login";
+"email"              = "E-mail";
+"password"           = "Password";
+"sign_in"            = "Login";
+"create_account"     = "Iscriviti";
+"recovery_password"  = "Recupera la password";
+"name"               = "Utente";
+"invalid_email"      = "Oops... Questo indirizzo e-mail non è valido";
+"invalid_password"   = "Password troppo corta. Provane un'altra, per favore...";
+"incorrect_password" = "La password inserita non è corretta";
+"field_required"     = "Questo campo è obbligatorio";
+"text_material"      = "Materiale Conferenza -";
+"text_link_material" = "clicca sul link sottostante per effettuare il download di materiale";
+"user_and_password"         = "È necessario informare l' utente e la password";
+"user_or_password_invalid"  = "Utente o password non valida.";
+"sending_message"           = "il messaggio";
+"error_sending_message"     = "C'è stato un errore l'invio del messaggio";
+"rescue_password"           = "Accedi alla tua e-mail per reimpostare la password";
+"not_registered_email"      = "E-mail non registrato.";
+"register"                  = "Catasto";
+"fields_empty"              = "È necessario compilare tutti i campi.";
+"email_in_use"              = "L'e-mail selezionato è già in uso. Effettua il login.";
+"loading_programming"       = "Programmazione Caricamento...";
+"unable_load_data"          = "Impossibile caricare i dati.";
+"sent_email_when_available" = "Il materiale verrà inviato per e-mail %@ quando disponibile.";
+"sent_email_when_exist_material" = "Il materiale è stato inviato l'e-mail %@ successo.";
+"no_internet_connection"    = "Senza connessione a internet, riprovare più tardi";
+"about_activity"            = "A proposito di attività";
+"about_Speaker"             = "A proposito il Presidente";
+"questions"                 = "Domande";
+"evaluation_of"             = "Cogli l'occasione per fare un commento.";
+"sign_up"                   = "Iscriviti";
+"enter_email"               = "Inserisci la tua e-mail:";
+"submit"                    = "Inviare";
+"cancel"                    = "Annullare";
+"events"                    = "Eventi";
+"logout"                    = "Disconnettersi";
+"my_events"                 = "I miei eventi";
+"remove_events"             = "Rimuovere gli eventi I miei eventi";
+"add_events"                = "Aggiungi l'evento al Miei Eventi";
+"add_event_to_favorites"    = "Aggiunta l'evento ai tuoi preferit";
+"success_event"             = "Aggiungendo successo dell'evento";
+"removing_event_success"    = "Evento rimosso con successo";
+"removing_event"            = "Rimozione evento";
+"password_to"               = "Inserire la password della manifestazione . In caso contrario , cercare l' organizzazione dell'evento";
+"fail_saved_password"       = "La tua password. Se vuoi per l'organizzazione della manifestazione.";
+"success_saved_password"    = "Password salvata con successo";
+"loading_event" = "Caricamento miei eventi ...";
+"user_alredy_exists"  = "Un utente è già stato creato per voi dall'organizzatore dell'evento . Inserisci la tua email qui sotto per creare una password:";
+"voting_instruction" = "Ciao!\n\nQuando richiesto dall'organizzazione, fare clic sul bottone qui sotto e verrai indirizzato alla schermata di voto.\n\nBuona evento.";
+"close" = "Vicino";
+"vote" = "Voto";
+"loading_question" = "Caricamento la questione";
+"loading_papers"       = "Caricamento di contenuti...";
+"loading_rating"   = "Caricamento Valutazione...";
+"loading_speakers" = "Caricamento Altoparlanti...";
+"no_papers_yet" = "Non vi è alcun lavoro fino ad oggi.";
+"no_notices_yet" = "Nessun allarme finora.";
+"no_favorite_talks_yet" = "Non si parla aggiunto ai preferiti fino ad oggi.";
+"events" = "Evento";
+"papers" = "Documenti";
+"favorites" = "Preferiti";
+"notices" = "Avvisi";
+"evaluation_event" = "Valutare";
+"evaluation_sent_success" = "Completato con successo valutazione";
+"error" = "Si è verificato il seguente errore: %ld - %@";
+"no_submitted_evaluation" = "Hai fatto nessuna valutazione! Si prega di eseguire la valutazione prima di inviare.";
+"no_evaluation_yet" = "Non ci sono domande per la valutazione fino ad oggi.";
+"ask" = "Chiedere";

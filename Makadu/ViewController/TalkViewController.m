@@ -9,79 +9,191 @@
 #import "TalkViewController.h"
 
 #import "DateFormatter.h"
-#import "Connection.h"
-#import "Cloud.h"
-#import "Schedule.h"
-#import "Messages.h"
 #import "Rating.h"
 #import "Localytics.h"
-
+#import "Speaker.h"
 #import "QuestionDAO.h"
 #import "TalkDAO.h"
-#import "RatingDAO.h"
+#import "Connection.h"
+#import "Messages.h"
+#import "User.h"
+#import "DateFormatter.h"
 
 #import "TalkDescriptionTableViewCell.h"
 #import "TalkSpeakerTableViewCell.h"
 #import "TalkQuestionTableViewCell.h"
 #import "QuestionViewController.h"
 
+#import "UIRefreshControl+AFNetworking.h"
+#import "UIAlertView+AFNetworking.h"
 
 @interface TalkViewController ()
 
 @property (nonatomic, strong) NSArray *listQuestions;
+@property (nonatomic, strong) NSArray *listSpeaker;
 @property (strong, nonatomic) NSNumber *ratingNote;
 @property (strong, nonatomic) Rating *ratingSelf;
-@property (strong, nonatomic) PFObject * talkObject;
+
+@property (weak, nonatomic) IBOutlet EDStarRating *starRating;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *localLabel;
+@property (nonatomic, weak) IBOutlet UIButton * questionButton;
+@property (nonatomic, weak) IBOutlet UIButton * downloadButton;
+@property (weak, nonatomic) IBOutlet UIButton * favoriteButton;
+
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation TalkViewController
 
+#pragma mark - Data load
+
+- (void)reloadSpeaker:(__unused id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:NSLocalizedString(@"loading_speakers", nil) mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    
+    NSURLSessionTask *task = [Talk getTalkWithEventId:self.talk.eventId talkId:self.talk.ID block:^(NSArray *speakers, NSError *error) {
+        if (!error) {
+            
+            [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+            
+            self.listSpeaker = speakers;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Ocorreu um erro");
+        }
+    }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+}
+
+-(void)reloadLocalSpeaker {
+    self.listSpeaker = [Speaker retrieveByTalkId:self.talk.ID];
+    [self.tableView reloadData];
+}
+
+- (void)reloadQuestion:(__unused id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:NSLocalizedString(@"loading_question", nil) mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    
+    NSURLSessionTask *task = [Question getQuestionsByTalkAndEventId:self.talk.ID eventId:self.talk.eventId block:^(NSArray *questions, NSError *error) {
+        if (!error) {
+            
+            [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+            
+            self.listQuestions = questions;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"Ocorreu um erro");
+        }
+    }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+}
+
+-(void)reloadLocalQuestion {
+    self.listQuestions = [Question retrieveByTalkId:self.talk.ID];
+    [self.tableView reloadData];
+}
+
+- (void)reloadRating:(__unused id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    [MRProgressOverlayView showOverlayAddedTo:self.view title:NSLocalizedString(@"loading_rating", nil) mode:MRProgressOverlayViewModeIndeterminateSmallDefault animated:YES];
+    
+    NSURLSessionTask *task = [Rating getRatingByEvent:self.talk.eventId talkId:self.talk.ID block:^(NSArray *rating, NSError *error){
+        if (!error) {
+            self.ratingSelf = ((Rating *)[rating objectAtIndex:0]);
+            
+            [self startStarRating];
+            
+            [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+            
+        } else {
+            NSLog(@"Ocorreu um erro");
+            [MRProgressOverlayView dismissAllOverlaysForView:self.view animated:YES];
+        }
+    }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+}
+
+-(void)reloadLocalRating {
+    self.ratingSelf.note = ((Rating *)[Rating getRating:self.talk.eventId]).note;
+}
+
+#pragma mark - verifications
+-(void)fetchSpeakers {
+    
+    if (![Connection existConnection]) {
+        [self reloadLocalSpeaker];
+    } else {
+        [self reloadSpeaker:nil];
+    }
+}
+
+-(void)fetchQuestions {
+    
+    if (![Connection existConnection]) {
+        [self reloadLocalQuestion];
+    } else {
+        [self reloadQuestion:nil];
+    }
+}
+
+-(void)fetchRating {
+    
+    if (![Connection existConnection]) {
+        [self reloadLocalRating];
+    } else {
+        [self reloadRating:nil];
+    }
+}
+
+#pragma mark - cicle life
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self fetchTalk];
+
     [self startStarRating];
     
-    self.titleLabel.text = self.talk.title;
-    self.localLabel.text = [NSString stringWithFormat:@"%@ - %@ %@", self.talk.local, [DateFormatter formateDateBrazilianWhithDate:self.talk.date withZone:YES], self.talk.startHour];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     
-    self.questionButton.hidden = !self.talk.allowQuestion;
-    self.downloadButton.hidden = !self.talk.allowFile;
-}
+    self.localLabel.text = [NSString stringWithFormat:@"%@ - %@ %@", self.talk.room, [DateFormatter formateDateBrazilianWithDiferentFormat:self.talk.startTime], [DateFormatter formateHourBrazilian:self.talk.startTime ]];
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [Localytics tagScreen:@"Talk Detail"];
-}
+    UIImage * imageNormal = [UIImage imageNamed:@"star_empty.png"];
+    UIImage * imageSelected = [UIImage imageNamed:@"star_selected.png"];
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:NO];
-    
-    if ([self.talk isFavorite])
-        self.favoriteButton.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
-    else
-        self.favoriteButton.backgroundColor = [UIColor clearColor];
+    [self.favoriteButton setImage:[self imageWithImage:imageNormal scaledToSize:CGSizeMake(25, 25)]forState:UIControlStateNormal];
+    [self.favoriteButton setImage:[self imageWithImage:imageSelected scaledToSize:CGSizeMake(25, 25)] forState:UIControlStateSelected];
+    self.tableView.rowHeight = 70.0f;
     
     self.favoriteButton.selected = [self.talk isFavorite];
     
-    
+    [self fetchSpeakers];
     [self fetchQuestions];
+    [self fetchRating];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+-(void)viewDidAppear:(BOOL)animated {
+    
+    [Localytics tagEvent:@"Talk Detail" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title }];
 }
 
-#pragma mark - Table view data source
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.titleLabel.text = self.talk.title;
+    
+    self.questionButton.titleLabel.text = NSLocalizedString(@"about_activity", nil);
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
-
+    
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     switch (section) {
@@ -89,7 +201,7 @@
             return 1;
             break;
         case 1:
-            return [self.talk.speakers count];
+            return [self.listSpeaker count];
         case 2:
             return [self.listQuestions count];
         default:
@@ -105,16 +217,19 @@
     if (indexPath.section == 0) {
         static NSString * scheduleDetailTableCell = @"talkCell";
         TalkDescriptionTableViewCell *cell = (TalkDescriptionTableViewCell *)[tableView dequeueReusableCellWithIdentifier:scheduleDetailTableCell];
-    
+        
         cell.descriptionTextView.text = self.talk.talkDescription;
+        
         return cell;
-    
+        
     } else if (indexPath.section == 1) {
         static NSString * scheduleDetailTableCell = @"talkSpeakerCell";
+        
         TalkSpeakerTableViewCell *cell = (TalkSpeakerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:scheduleDetailTableCell];
         
-        cell.speakerNameLabel.text = [self.talk.speakers objectAtIndex:indexPath.row][@"full_name"];
-        cell.aboutSpeakerTextView.text = [self.talk.speakers objectAtIndex:indexPath.row][@"about_speaker"];
+        cell.speakerNameLabel.text = ((Speaker *)[self.listSpeaker objectAtIndex:indexPath.row]).name;
+        cell.aboutSpeakerTextView.text = ((Speaker *)[self.listSpeaker objectAtIndex:indexPath.row]).about;
+        
         return cell;
     } else if (indexPath.section == 2) {
         static NSString * scheduleDetailTableCell = @"talkQuestionCell";
@@ -127,7 +242,7 @@
         NSString * questioning = question.questioning;
         if (!questioning)
             questioning = @"";
-        cell.questionigLabel.text = [NSString stringWithFormat:@"%@ %@", questioning, question.date];
+        cell.questionigLabel.text = [NSString stringWithFormat:@"%@ %@", questioning, [DateFormatter formateHourBrazilian:question.date]];
         
         return cell;
     }
@@ -151,13 +266,13 @@
     
     switch (section) {
         case 0:
-            lblHeader.text = @"Sobre a Ativedade";
+            lblHeader.text = NSLocalizedString(@"about_activity", nil);
             break;
         case 1:
-            lblHeader.text = @"Sobre o Palestrante";
+            lblHeader.text = NSLocalizedString(@"about_Speaker", nil);
             break;
         case 2: {
-            lblHeader.text = @"Perguntas";
+            lblHeader.text = NSLocalizedString(@"questions", nil);
             UIButton * btnRefreshQuestion = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 40, -4, 32, 32)];
             [btnRefreshQuestion setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
             [btnRefreshQuestion addTarget:self action:@selector(fetchQuestions) forControlEvents:UIControlEventTouchUpInside];
@@ -182,113 +297,24 @@
     }
 }
 
-#pragma mark - Segue
 
+#pragma mark - Segue
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([Connection existConnection]) {
         if ([segue.identifier isEqualToString:@"addQuestionSegue"]) {
             QuestionViewController *questionViewController = [segue destinationViewController];
             [questionViewController setTalk:self.talk];
-//            [questionViewController setTalkObject:self.talkObject];
-            [questionViewController setEventObject:self.eventObject];
+            [questionViewController setEvent:self.event];
         }
     } else {
-        [Messages failMessageWithTitle:nil andMessage:@"Sem internet no momento, tente novamente mais tarde"];
+        [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"no_internet_connection", nil)];
     }
 }
 
 
-#pragma mark - fetch
-
--(void)fetchQuestions {
-//    PFObject * talkObject = [TalkDAO fetchTalkByTalkId:self.talk];
-    if (self.talkObject == nil) {
-        self.listQuestions = nil;
-        [self.tableView reloadData];
-    } else {
-        [QuestionDAO fetchQuestionByTalk:self.talkObject questions:^(NSArray * objects) {
-            self.listQuestions = objects;
-            [self.tableView reloadData];
-        } failure:^(NSString * error) {
-            NSLog(@"%@", error);
-        }];
-    }
-}
-
-#pragma mark - Action
-
-- (IBAction)tapDownload:(id)sender {
-    
-    if([Connection existConnection]) {
-        if(self.talk.file) {
-            NSString * urlFile = self.talk.file.url;
-            [Cloud sendMail:[[PFUser currentUser] email] url:urlFile talkName:self.talk.title];
-        } else {
-            [Messages successMessageWithTitle:nil andMessage:[NSString stringWithFormat:@"O material será enviado para %@ quando disponível", [[PFUser currentUser] email]]];
-            [Schedule saveDataScheduleWithUser:[PFUser currentUser] talk:self.talk];
-        }
-    } else {
-        [Messages failMessageWithTitle:nil andMessage:@"Sem internet no momento, tente novamente mais tarde"];
-    }
-}
-
--(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
-{
-    self.ratingNote = [NSNumber numberWithFloat:rating];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                    message:[NSString stringWithFormat:@"Avaliação de %@", [PFUser currentUser][@"full_name"]]
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancelar"
-                                          otherButtonTitles:@"Enviar", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
-}
-
-- (IBAction)tapFavorite:(id)sender {
-    
-    if (![self.talk isFavorite])
-        self.favoriteButton.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:133.0/255.0 blue:110.0/255.0 alpha:1];
-    else
-        self.favoriteButton.backgroundColor = [UIColor clearColor];
-    
-    self.favoriteButton.selected = ![self.talk isFavorite];
-    [self.talk toggleFavorite:![self.talk isFavorite]];
-}
-
-#pragma mark - Delegate AlertView
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSLog(@"%@ - %ld", [alertView textFieldAtIndex:0].text, (long)buttonIndex);
-    
-    if (buttonIndex == 1) {
-        Rating *rating = [Rating new];
-        rating.user = [PFUser currentUser];
-        rating.note = self.ratingNote;
-        rating.talk = self.talkObject;
-        rating.ratingDescription = [alertView textFieldAtIndex:0].text;
-    
-        [RatingDAO saveRating:rating];
-    } else {
-        self.starRating.rating = [self.ratingSelf.note floatValue];
-    }
-}
-
--(void)fetchTalk {
-    [TalkDAO fetchTalkByTalkIdInBackGround:self.talk talks:^(PFObject *talk) {
-        self.talkObject = talk;
-        [self startStarRating];
-        [self fetchQuestions];
-        [self.tableView reloadData];
-    } failure:^(NSString * error) {
-        NSLog(@"Erro ao carregar a palestra");
-    }];
-}
-
+#pragma mark - stars
 -(void)startStarRating {
-    if (self.talkObject != nil) {
-        self.ratingSelf = [RatingDAO fetchRatingByUserAndTalk:[PFUser currentUser] talk:self.talkObject];
-    }
+    
     // Setup control using iOS7 tint Color
     self.starRating.backgroundColor  = [UIColor whiteColor];
     self.starRating.starImage = [UIImage imageNamed:@"star.png"];
@@ -299,6 +325,128 @@
     self.starRating.editable = YES;
     self.starRating.rating = [self.ratingSelf.note floatValue];
     self.starRating.displayMode=EDStarRatingDisplayFull;
+}
+
+-(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
+{
+    
+    if (([self.event.eventType isEqualToString:@"private"] && [Event eventSavePassword:self.event]) || ([self.event.eventType isEqualToString:@"Publico"] || [self.event.eventType isEqualToString:@"Oculto"]) || [self.event isFavorite]) {
+            self.ratingNote = [NSNumber numberWithFloat:rating];
+
+    
+    
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                    message:[NSString stringWithFormat:NSLocalizedString(@"evaluation_of", nil)]
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                          otherButtonTitles:NSLocalizedString(@"submit", nil), nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            alert.tag = 0;
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:[NSString stringWithFormat:NSLocalizedString(@"password_to", nil)]
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                              otherButtonTitles:NSLocalizedString(@"submit", nil), nil];
+        alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+        alert.tag = 1;
+        [alert show];
+    }
+    
+    
+}
+
+#pragma mark - Delegate AlertView
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (alertView.tag == 0) {
+        
+        if (buttonIndex == 1) {
+            [Rating createNewRating:self.talk.eventId talkId:self.talk.ID value:[NSString stringWithFormat:@"%@", self.ratingNote] commentary:[alertView textFieldAtIndex:0].text withCompletitionBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [Localytics tagEvent:@"Tap Rating Success" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title, @"Rating" : self.ratingNote, @"Commetary" : [alertView textFieldAtIndex:0].text }];
+                
+            } andFailBlock:^(AFHTTPRequestOperation *operation, NSError * error) {
+                
+                [Localytics tagEvent:@"Tap Rating Fail" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title, @"Rating" : self.ratingNote, @"Commetary" : [alertView textFieldAtIndex:0].text, @"Error" : error.localizedDescription }];
+            }];
+        } else {
+            self.starRating.rating = [self.ratingSelf.note floatValue];
+        }
+    } else {
+        if (buttonIndex == 1) {
+            if([self.event.password isEqualToString:[alertView textFieldAtIndex:0].text]) {
+                [Event savePasswordEvent:@[self.event]];
+                [Messages successMessageWithTitle:nil andMessage:NSLocalizedString(@"success_saved_password", nil)];
+            } else
+                [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"fail_saved_password", nil)];
+        }
+    }
+}
+
+#pragma mark - resize image
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (IBAction)tapFavorite:(id)sender {
+    if (([self.event.eventType isEqualToString:@"private"] && [Event eventSavePassword:self.event]) || ([self.event.eventType isEqualToString:@"Publico"] || [self.event.eventType isEqualToString:@"Oculto"]) || [self.event isFavorite]) {
+        
+        [Localytics tagEvent:@"Tap Favorities" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title }];
+
+        self.favoriteButton.selected = ![self.talk isFavorite];
+        [self.talk toggleFavorite:![self.talk isFavorite]];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:[NSString stringWithFormat:NSLocalizedString(@"password_to", nil)]
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                              otherButtonTitles:NSLocalizedString(@"submit", nil), nil];
+        alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+        alert.tag = 1;
+        [alert show];
+    }
+}
+
+- (IBAction)tapDownload:(id)sender {
+    
+    if (([self.event.eventType isEqualToString:@"private"] && [Event eventSavePassword:self.event]) || ([self.event.eventType isEqualToString:@"Publico"] || [self.event.eventType isEqualToString:@"Oculto"]) || [self.event isFavorite]) {
+
+        if([Connection existConnection]) {
+            
+            User *user = [User currentUser];
+            [Talk downloadMaterial:user.userName eventId:self.talk.eventId talkId:self.talk.ID withCompletitionBlock:^(AFHTTPRequestOperation * operation, id responseObject){
+                
+                [Localytics tagEvent:@"Tap Download" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title }];
+                
+                if(responseObject[@"result"] && [responseObject[@"result"] isEqualToString:@"link enviado"]) {
+                    [Messages successMessageWithTitle:nil andMessage:[NSString stringWithFormat:NSLocalizedString(@"sent_email_when_exist_material", nil), user.email]];
+                } else {
+                    [Messages successMessageWithTitle:nil andMessage:[NSString stringWithFormat:NSLocalizedString(@"sent_email_when_available", nil), user.email]];
+                }
+                
+            } andFailBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [Messages failMessageWithTitle:nil andMessage:NSLocalizedString(@"no_internet_connection", nil)];
+                
+                [Localytics tagEvent:@"Tap Download" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title, @"Talk" : self.talk.title, @"Error" : error.localizedDescription }];
+            }];
+        }
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:[NSString stringWithFormat:NSLocalizedString(@"password_to", nil)]
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"cancel", nil)
+                                              otherButtonTitles:NSLocalizedString(@"submit", nil), nil];
+        alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+        alert.tag = 1;
+        [alert show];
+    }
 }
 
 @end

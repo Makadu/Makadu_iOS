@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MRProgress/MRProgress.h>
+#import "User.h"
 
-@interface EventListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface EventListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating>
 
 @end

@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
-#import <ParseUI/ParseUI.h>
 #import <MRProgress/MRProgress.h>
 
 #import "ShowEventViewController.h"
 
-@interface TalkFavoriteListTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource>
+@interface TalkFavoriteListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
 

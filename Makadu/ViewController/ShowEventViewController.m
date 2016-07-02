@@ -8,6 +8,8 @@
 
 #import "ShowEventViewController.h"
 #import "EventDAO.h"
+#import "Notice.h"
+#import "NoticeListTableViewController.h"
 
 @interface ShowEventViewController ()
 
@@ -17,40 +19,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetchEventsByEventID];
-}
-
--(void)fetchEventsByEventID {
-    self.eventObject = [EventDAO fetchEventByEventId:self.event];
-}
-
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     
-    if([item.title isEqualToString:@"Programação"])
-    {
-        [self addImageView];
+    [self updateBadgeValue:@{@"event_id": self.event.ID}];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBadgeValue:) name:@"pushNotices" object:nil];
+    
+    
+    [[self.tabBar.items objectAtIndex:0] setTitle:NSLocalizedString(@"events", nil)];
+    [[self.tabBar.items objectAtIndex:1] setTitle:NSLocalizedString(@"schedule", nil)];
+    [[self.tabBar.items objectAtIndex:2] setTitle:NSLocalizedString(@"papers", nil)];
+    [[self.tabBar.items objectAtIndex:3] setTitle:NSLocalizedString(@"favorites", nil)];
+    [[self.tabBar.items objectAtIndex:4] setTitle:NSLocalizedString(@"notices", nil)];
+}
+
+
+-(void)updateBadgeValue:(id)eventId {
+
+    if ([Notice getNoticesNotVisualizedByEventId:[self retriveEventId:eventId]] > 0) {
+        [[self.viewControllers objectAtIndex:4] tabBarItem].badgeValue = [NSString stringWithFormat:@"%d", [Notice getNoticesNotVisualizedByEventId:[self retriveEventId:eventId]]];
+    } else {
+        [[self.viewControllers objectAtIndex:4] tabBarItem].badgeValue = nil;
+    }
+    
+    if (self.tabBar.selectedItem.tag == 4000) {
+        [[self.viewControllers objectAtIndex:4] tabBarItem].badgeValue = nil;
     }
 }
 
--(void)addImageView {
+-(NSString *)retriveEventId:(id)userInfo {
     
-    if([self.eventObject objectForKey:@"sponsor"]) {
+    NSString * event_ID = @"";
+    if ([userInfo isKindOfClass:[NSNotification class]])
+        event_ID = [[(NSNotification *)userInfo userInfo] objectForKey:@"event_id"];
     
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        UIImageView *patronageImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
-        patronageImage.image = self.event.imageLoaded;
+    if ([userInfo isKindOfClass:[NSDictionary class]])
+        event_ID = [(NSDictionary *)userInfo objectForKey:@"event_id"];
     
-        [self.view addSubview:patronageImage];
-    
-        [self performSelector:@selector(removeImage:) withObject:patronageImage afterDelay:10.0];
-    }
+    return event_ID;
 }
-
--(void)removeImage:(PFImageView *)imageView {
-    
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [imageView removeFromSuperview];
-}
-
 
 @end

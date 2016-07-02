@@ -7,15 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "Event.h"
 #import "Talk.h"
+#import "AppHelper.h"
+#import <sqlite3.h>
+
 
 @interface TalkDAO : NSObject
 
-+(void)fetchTalkByEvent:(PFObject *)event talks:(void(^)(NSArray* talks))success failure:(void(^)(NSString *errorMessage))failure;
++(void)createOrUpdate:(NSArray *)talks eventId:(NSString *)eventId operation:(NSString *)operation;
++(void)linkSpeakerATalk:(NSString *)talkId speakers:(NSArray *)speakers;
 
-+(void)fetchTalkByTalkIdInBackGround:(Talk *)talk talks:(void(^)(PFObject* talkObject))success failure:(void(^)(NSString *errorMessage))failure;
++(BOOL)existRegisterInDatabase:(Talk *)talk eventId:(NSString *)eventId;
 
-+(PFObject *)fetchTalkByTalkId:(Talk *)talk;
++(NSArray *)retrieveAll;
++(NSArray *)retrieveAll:(NSString *)whereCondicional;
+
+#pragma mark - Favorities
+
++(void)saveFavorities:(NSArray *)talks;
++(void)removeFavorite:(NSArray *)talks eventId:(NSString *)eventId;
+
 @end

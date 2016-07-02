@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Parse/Parse.h>
 
 @interface NoticeDAO : NSObject
-
-+(void)fetchNoticeByEvent:(PFObject *)event notices:(void(^)(NSArray* notices))success failure:(void(^)(NSString *errorMessage))failure;
 
 @end

@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
 #import <MRProgress/MRProgress.h>
-
+#import "Question.h"
+#import "Event.h"
+#import "User.h"
 #import "Talk.h"
 
 @interface QuestionViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) Talk *talk;
-//@property (nonatomic, strong) PFObject *talkObject;
-@property (nonatomic, strong) PFObject *eventObject;
+@property (nonatomic, strong) Event *event;
 
 @end

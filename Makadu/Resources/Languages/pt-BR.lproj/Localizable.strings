@@ -1,0 +1,97 @@
+/* 
+  Localizable.strings
+  Makadu
+
+  Created by Marcio Habigzang Brufatto on 11/8/15.
+  Copyright © 2015 Madhava. All rights reserved.
+*/
+
+"app_name"           = "Makadu";
+"app_aviso"          = "Avisos";
+"action_perfil"      = "Perfil";
+"action_settings"    = "Configurações";
+"event"              = "Eventos";
+"schedule"           = "Programação";
+"talk"               = "Palestras";
+"detail_event"       = "Detalhe do Evento";
+"details"            = "Detalhes";
+"search"             = "Pesquisar...";
+"notification"       = "Notificação";
+"detail_talk"        = "Detalhe da Programação";
+"success_download"   = "O material da palestra foi enviado para seu e-mail com sucesso!";
+"success_question"   = "Sua pergunta foi enviada com sucesso!";
+"rating"             = "Avaliação efetuada com sucesso!";
+"notifications"      = "Notificações";
+"sponsor"            = "Patrocinador";
+"favorities"         = "Favoritos";
+"login"              = "Login";
+"email"              = "E-mail";
+"password"           = "Senha";
+"sign_in"            = "Acessar";
+"create_account"     = "Criar Conta";
+"recovery_password"  = "Recuperar Senha";
+"name"                     = "Nome";
+"invalid_email"            = "Opa... Esse endereço de E-mail é inválido";
+"invalid_password"         = "Senha muito curta. Digite uma maior por favor...";
+"incorrect_password"       = "A senha está incorreta";
+"field_required"           = "Esse campo é obrigatório";
+"text_material"            = "Material da palestra - ";
+"text_link_material"       = "Clique no link abaixo para realizar o download do material";
+"user_and_password"        = "Você deve informar o usuário e a senha";
+"user_or_password_invalid" = "Usuário ou senha inválido.";
+"sending_message"          = "Enviando mensagem.";
+"error_sending_message"    = "Ocorreu um erro no envio de sua menssagem.";
+"rescue_password"          = "Acesse seu e-mail para redefinir sua senha";
+"not_registered_email"     = "E-mail não cadastrado.";
+"register"                 = "Cadastro";
+"fields_empty"             = "Você deve preencher todos os campos.";
+"email_in_use"             = "O e-mail selecionado já está em uso. Faça seu login.";
+"loading_programming"      = "Carregando a programação...";
+"unable_load_data"         = "Não foi possível carregar os dados.";
+"sent_email_when_available" = "O material será enviado para o e-mail %@ quando disponível.";
+"sent_email_when_exist_material" = "O material foi enviado para o e-mail %@ com sucesso";
+"no_internet_connection"    = "Sem conexão com a internet, tente novamente mais tarde.";
+"about_activity"            = "Sobre a Atividade";
+"about_Speaker"             = "Sobre o Palestrante";
+"questions"                 = "Perguntas";
+"evaluation_of"             = "Aproveite para fazer um comentário.";
+"sign_up"                   = "Cadastre-se";
+"enter_email"               = "Informe seu e-mail:";
+"submit"                    = "Enviar";
+"cancel"                    = "Cancelar";
+"events"                    = "Eventos";
+"logout"                    = "Sair";
+"my_events"                 = "Meus Eventos";
+"remove_events"             = "Remover evento de Meus Eventos";
+"add_events"                = "Adicionar evento aos Meus Eventos";
+"add_event_to_favorites"    = "Adicionando o evento para seus favoritos";
+"success_event"             = "Evento adicionado com sucesso";
+"removing_event_success"    = "Evento removido com sucesso";
+"removing_event"            = "Removendo evento";
+"password_to"               = "Digite a senha do evento. Caso não tenha, procure a organização do evento";
+"fail_saved_password"       = "Senha incorreta. Procure a organização do evento.";
+"success_saved_password"    = "Senha salva com sucesso";
+"loading_event"             = "Carregando meus eventos ...";
+"user_alredy_exists"  = "Um usuário já foi criado para você pelo organizador do evento. Digite seu e-mail abaixo para criar uma senha:";
+"voting_instruction" = "Olá!\n\nQuando solicitado pela organização, clique no botão abaixo e você será direcionado para a tela de votação.\n\nBom evento.";
+"close" = "Sair";
+"vote" = "Votar";
+"loading_question" = "Carregando a pergunta...";
+"loading_papers"       = "Carregando conteúdo...";
+"loading_rating"   = "Carregando Avaliação...";
+"loading_speakers" = "Carregando Palestrantes...";
+"no_papers_yet" = "Não há trabalhos até o momento.";
+"no_notices_yet" = "Não há avisos até o momento.";
+"no_favorite_talks_yet" = "Você não favoritou palestras até o momento.";
+"events" = "Evento";
+"papers" = "Trabalhos";
+"favorites" = "Favoritos";
+"notices" = "Avisos";
+"evaluation_event" = "Avaliar evento";
+"evaluation_sent_success" = "Avaliação realizada com sucesso";
+"error" = "Ocerreu o seguinte erro: %ld - %@";
+"no_submitted_evaluation" = "Você não realizou nenhuma avaliação! Por favor realize a avaliação antes de enviar.";
+"no_evaluation_yet" = "Sem perguntas até o momento.";
+"notices" = "Avisos";
+"evaluation" = "Avaliar o Evento";
+"ask" = "Perguntar";

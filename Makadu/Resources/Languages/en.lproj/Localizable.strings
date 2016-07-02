@@ -1,0 +1,97 @@
+/* 
+  Localizable.strings
+  Makadu
+
+  Created by Marcio Habigzang Brufatto on 11/8/15.
+  Copyright © 2015 Madhava. All rights reserved.
+*/
+
+"app_name"           = "Makadu";
+"app_aviso"          = "Announcements";
+"action_perfil"      = "Profile";
+"action_settings"    = "Configurations";
+"event"              = "Events";
+"talk"               = "Talks";
+"detail_event"       = "Event Details";
+"details"            = "Details";
+"search"             = "Search...";
+"notification"       = "Notification";
+"detail_talk"        = "Schedule Details";
+"success_download"   = "The activity material was succesfully sent to your e-mail!";
+"success_question"   = "Your question was succesfully sent!";
+"rating"             = "Rating received succesfully!";
+"notifications"      = "Notifications";
+"sponsor"            = "Sponsor";
+"favorities"         = "Favorites";
+"login"              = "Login";
+"email"              = "E-mail";
+"password"           = "Password";
+"sign_in"            = "Login";
+"create_account"     = "Create Account";
+"recovery_password"  = "Forgot your password?";
+"name"               = "Name";
+"invalid_email"      = "Ops... The e-mail you entered is not valid.";
+"invalid_password"   = "Your password is too short. Try a longer one please.";
+"incorrect_password" = "Incorrect password or e-mail.";
+"field_required"     = "This is a required field.";
+"text_material"      = "Lecture material - ";
+"text_link_material" = "Click the link below to make the download of the material";
+"user_and_password"         = "You should inform the user and the password ";
+"user_or_password_invalid"  = "User or invalid password.";
+"sending_message"           = "sending message";
+"error_sending_message"     = "There was an error sending your message.";
+"rescue_password"           = "Access your e-mail to reset your password";
+"not_registered_email"      = "Not registered email.";
+"register"                  = "Register";
+"fields_empty"              = "You must fill in all of the fields.";
+"email_in_use"              = "The selected e-mail is already in use. Please login.";
+"loading_programming"       = "Loading schedule...";
+"unable_load_data"          = "Unable to load data.";
+"sent_email_when_available" = "The material will be sent e-mail %@ when available.";
+"sent_email_when_exist_material" = "The material was sent to the email %@ successfully";
+"no_internet_connection"    = "No internet connection, try again later";
+"about_activity"            = "About Activity";
+"about_Speaker"             = "About the Speaker";
+"questions"                 = "Questions";
+"evaluation_of"             = "Make a comment (optional)";
+"sign_up"                   = "Sign up";
+"enter_email"               = "Enter your e-mail";
+"submit"                    = "Submit";
+"cancel"                    = "Cancel";
+"events"                    = "Events";
+"logout"                    = "Logout";
+"my_events"                 = "My Events";
+"remove_events"             = "Remove event from My Events";
+"add_events"                = "Add event to My Events";
+"add_event_to_favorites"    = "Adding the event to your favorites";
+"success_event"             = "Successfully added event";
+"removing_event_success"    = "Event successfully removed";
+"removing_event"            = "Removing event";
+"password_to"               = "Enter event password. If you don't have it, contact the event organizers";
+"fail_saved_password"       = "Incorrect password . Look for the organization of the event.";
+"success_saved_password"    = "Password successfully saved";
+"loading_event"       = "Loading my events...";
+"user_alredy_exists"  = "An user was already registered for this e-mail by the Event Organizer or yourself. Create a new password:";
+"voting_instruction" = "Hello,\n\nWhen asked by the organizers, please click the button below and you will be redirected to the voting screen.\n\nHave a nice event.";
+"close" = "Close";
+"vote" = "Vote";
+"loading_question" = "Loading question";
+"loading_papers"       = "Loading content...";
+"loading_rating"   = "Loading ratings...";
+"loading_speakers" = "Loading speakers...";
+"no_papers_yet" = "There are no papers yet.";
+"no_notices_yet" = "There are no notices yet.";
+"no_favorite_talks_yet" = "You have no favorite talks yet.";
+"schedule" = "Schedule";
+"events" = "Event";
+"papers" = "Papers";
+"favorites" = "Favorites";
+"notices" = "Notices";
+"evaluation_event" = "Evaluate the event";
+"evaluation_sent_success" = "Successfully completed evaluation";
+"error" = "The following error occurred: %ld - %@";
+"no_submitted_evaluation" = "You made no evaluation! Please perform the assessment before sending.";
+"no_evaluation_yet" = "No questions yet.";
+"notices" = "Notices";
+"evaluation" = "Evaluate the Event";
+"ask" = "Ask";

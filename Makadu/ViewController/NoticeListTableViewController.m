@@ -12,84 +12,92 @@
 #import "NoticeDAO.h"
 #import "NoticeTableViewCell.h"
 #import "Localytics.h"
+#import "User.h"
+#import "Connection.h"
+#import "UIRefreshControl+AFNetworking.h"
+#import "UIAlertView+AFNetworking.h"
 
 @interface NoticeListTableViewController ()
 
 @property (nonatomic, strong) NSArray * listNotice;
-@property (nonatomic, strong) PFObject *talkObject;
 @property (nonatomic, strong) Notice * notice;
-@property (nonatomic, strong) Event * event;
 
 @end
 
 @implementation NoticeListTableViewController
 
+- (void)reload:(__unused id)sender {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    NSURLSessionTask *task = [Notice getNoticesByEvent:self.event.ID block:^(NSArray *notices, NSError *error) {
+        if (!error) {
+            self.listNotice = notices;
+            [self.tableView reloadData];
+            [Notice updateNoticeVisualized:self.listNotice andEventId:self.event.ID];
+        } else {
+            NSLog(@"Ocorreu um erro");
+        }
+    }];
+    
+    [UIAlertView showAlertViewForTaskWithErrorOnCompletion:task delegate:nil];
+    [self.refreshControl setRefreshingWithStateOfTask:task];
+}
+
+- (void)retriveLocal {
+    self.listNotice = [Notice getNotices:self.showEventViewController.event.ID];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.showEventViewController = (ShowEventViewController *)self.tabBarController;
-    self.showEventViewController.navigationController.navigationBar.translucent = NO;
-    self.tabBarController.tabBar.translucent = NO;
-    
     self.event = self.showEventViewController.event;
     
-    self.navigationController.navigationBar.topItem.title = @"Palestras";
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload:) name:@"pushNotices" object:nil];
     
+    self.refreshControl = [[UIRefreshControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, 100.0f)];
+    [self.refreshControl addTarget:self action:@selector(reload:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView.tableHeaderView addSubview:self.refreshControl];
     
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor lightGrayColor];
-    self.refreshControl.tintColor = [UIColor whiteColor];
-    [self.refreshControl addTarget:self action:@selector(getLatestNotices) forControlEvents:UIControlEventValueChanged];
-
-    [self fetchNotices];
+    [self configureTableView];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     
-    [Localytics tagScreen:@"Notices"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-#pragma mark - Update notices
-- (void)getLatestNotices
-{
-    [self fetchNotices];
-}
-
-- (void)reloadData
-{
-    // Reload table data
+    if (![Connection existConnection]) {
+        [self retriveLocal];
+    } else {
+        [self reload:nil];
+    }
+    
+    [Notice updateNoticeVisualized:self.listNotice andEventId:self.event.ID];
+    
     [self.tableView reloadData];
     
-    if (self.refreshControl) {
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"MMM d, h:mm a"];
-        
-        NSString *title = [NSString stringWithFormat:@"Last update: %@", [formatter stringFromDate:[NSDate date]]];
-        NSDictionary *attrsDictonary = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictonary];
-        self.refreshControl.attributedTitle = attributedTitle;
-        
-        [self.refreshControl endRefreshing];
-    }
+    [[self.tabBarController.viewControllers objectAtIndex:3] tabBarItem].badgeValue = nil;
+    
+    [Localytics tagEvent:@"Notices" attributes:@{@"Username" : [User currentUser].userName, @"Event:" : self.event.title }];
 }
+
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self.listNotice count] > 0) {
+        self.tableView.backgroundView = nil;
         return [self.listNotice count];
     } else {
+        UILabel * messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        messageLabel.text = NSLocalizedString(@"no_notices_yet", nil);
+        messageLabel.textColor = [UIColor blackColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        messageLabel.tag = 3000;
+        [messageLabel sizeToFit];
+        
+        self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return 0;
@@ -119,28 +127,9 @@
 
 #pragma mark - Other methods Table View
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    Notice * notice = [self.listNotice objectAtIndex:indexPath.row];
-    
-    CGFloat height = [NoticeTableViewCell calculateCellHeightWithNotice:notice.notice noticeDetail:notice.noticeDetail width:[[UIScreen mainScreen] bounds].size.width];
-    
-    return height + 52;
+-(void) configureTableView {
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 160.0;
 }
 
-#pragma Mark - fetch
-
--(void)fetchNotices {
-    if (self.showEventViewController.eventObject == nil) {
-        self.listNotice = nil;
-        [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-    } else {
-        [NoticeDAO fetchNoticeByEvent:self.showEventViewController.eventObject notices:^(NSArray * objects) {
-            self.listNotice = objects;
-            [self performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-        } failure:^(NSString * error) {
-            NSLog(@"%@", error);
-        }];
-    }
-}
 @end

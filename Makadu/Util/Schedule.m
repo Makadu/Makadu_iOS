@@ -11,14 +11,14 @@
 
 @implementation Schedule
 
-+(void)saveDataScheduleWithUser:(PFUser *)user talk:(Talk *)talk {
-    
-    PFObject *talkObject = [PFQuery getObjectOfClass:@"Talks" objectId:talk.talkID];
-    
-    PFObject * schedule = [PFObject objectWithClassName:@"Schedule"];
-    schedule[@"user"] = user;
-    schedule[@"talk"] = talkObject;
-    [schedule saveInBackground];
-}
+//+(void)saveDataScheduleWithUser:(PFUser *)user talk:(Talk *)talk {
+
+//    PFObject *talkObject = [PFQuery getObjectOfClass:@"Talks" objectId:talk.talkID];
+//    
+//    PFObject * schedule = [PFObject objectWithClassName:@"Schedule"];
+//    schedule[@"user"] = user;
+//    schedule[@"talk"] = talkObject;
+//    [schedule saveInBackground];
+//}
 
 @end

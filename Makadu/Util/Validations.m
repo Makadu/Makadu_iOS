@@ -49,17 +49,17 @@
     return [emailTest evaluateWithObject:candidate];
 }
 
-+(BOOL)verifyExistUser:(NSString *)email
-{
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo:email];
-    NSArray *username = [query findObjects];
-    
-    if (username.count > 0) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
+//+(BOOL)verifyExistUser:(NSString *)email
+//{
+//    PFQuery *query = [PFUser query];
+//    [query whereKey:@"username" equalTo:email];
+//    NSArray *username = [query findObjects];
+//    
+//    if (username.count > 0) {
+//        return YES;
+//    } else {
+//        return NO;
+//    }
+//}
 
 @end

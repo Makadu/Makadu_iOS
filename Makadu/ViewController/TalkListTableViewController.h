@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
-#import <ParseUI/ParseUI.h>
 #import <MRProgress/MRProgress.h>
 
 #import "ShowEventViewController.h"
 
-@interface TalkListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface TalkListTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating>
 
 @property (strong, nonatomic) ShowEventViewController *showEventViewController;
 
